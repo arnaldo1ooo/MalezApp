@@ -2,5 +2,5 @@
     <string name="app_name">TreeApp</string>
     <string name="ingrese_el_codigo_de_la_especie">Ingrese el codigo de la especie</string>
     <string name="buscar">Buscar</string>
-    <string name="resultado">Resultado</string>
+    <string name="resultado">Especie: especie</string>
 </resources>

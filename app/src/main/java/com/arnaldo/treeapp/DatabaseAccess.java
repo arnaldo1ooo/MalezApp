@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.IOException;
+
 public class DatabaseAccess {
     private SQLiteOpenHelper openHelper;
     private SQLiteDatabase bd;
@@ -26,7 +28,11 @@ public class DatabaseAccess {
 
     //Para abrir la bd
     public void open() {
-        this.bd = openHelper.getWritableDatabase();
+        try {
+            this.bd = openHelper.getWritableDatabase();
+        } catch (Exception e) {
+            System.out.println("Error al intentar escribir en la bd " + e);
+        }
     }
 
     //Para cerrar la bd

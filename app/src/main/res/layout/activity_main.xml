@@ -34,10 +34,11 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/tv_resultado"
+            android:id="@+id/tv_descripcion"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/resultado"
-            android:textSize="18sp" />
+            android:layout_height="45dp"
+            android:layout_marginTop="30sp"
+            android:textColor="#050505"
+            android:textSize="25sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
