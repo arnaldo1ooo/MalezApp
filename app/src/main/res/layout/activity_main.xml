@@ -29,9 +29,12 @@
             android:id="@+id/btn_buscar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#0E4E11"
             android:onClick="Buscar"
             android:text="@string/buscar"
-            android:textSize="18sp" />
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_descripcion"
