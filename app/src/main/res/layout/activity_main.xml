@@ -37,11 +37,36 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_descripcion"
+            android:id="@+id/tv_identificador"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="30sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15sp"
+            android:text="@string/tv_identificador"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_nombrecomun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_nombrecomun"
             android:textColor="#050505"
-            android:textSize="25sp" />
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_nombrecientifico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_nombrecientifico"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/iv_imagen"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="15sp"
+            android:contentDescription="@string/Descripcion_iv_imagen"
+            app:srcCompat="@drawable/imagen_0" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

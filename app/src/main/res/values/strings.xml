@@ -3,4 +3,8 @@
     <string name="ingrese_el_codigo_de_la_especie">Ingrese el codigo de la especie</string>
     <string name="buscar">Buscar</string>
     <string name="resultado">Especie: especie</string>
+    <string name="tv_nombrecomun">Nombre común:</string>
+    <string name="tv_identificador">Identificador:</string>
+    <string name="Descripcion_iv_imagen">Foto del árbol</string>
+    <string name="tv_nombrecientifico">Nombre científico:</string>
 </resources>
