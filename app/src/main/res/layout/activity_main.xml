@@ -6,67 +6,150 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="347dp"
-        android:layout_height="574dp"
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="344dp"
+        android:layout_height="167dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
+        android:layout_marginTop="12dp"
+        android:shrinkColumns="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/et_identificador"
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/ingrese_el_codigo_de_la_especie"
-            android:importantForAutofill="no"
-            android:inputType="textPersonName"
-            android:textSize="20sp" />
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btn_buscar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#0E4E11"
-            android:onClick="Buscar"
-            android:text="@string/buscar"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            <EditText
+                android:id="@+id/et_identificador"
+                android:layout_width="216dp"
+                android:layout_height="wrap_content"
+                android:layout_span="3"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/ingrese_el_codigo_de_la_especie"
+                android:importantForAutofill="no"
+                android:inputType="textPersonName"
+                android:textSize="20sp" />
+        </TableRow>
 
-        <TextView
-            android:id="@+id/tv_identificador"
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15sp"
-            android:text="@string/tv_identificador"
-            android:textColor="#000000"
-            android:textSize="16sp" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_nombrecomun"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tv_nombrecomun"
-            android:textColor="#050505"
-            android:textSize="16sp" />
+            <Button
+                android:id="@+id/btn_buscar"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:layout_span="3"
+                android:layout_weight="1"
+                android:background="#0E4E11"
+                android:onClick="Buscar"
+                android:text="@string/buscar"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_nombrecientifico"
+        </TableRow>
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tv_nombrecientifico"
-            android:textColor="#000000"
-            android:textSize="16sp" />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:text="@string/identificador"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_identificador"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/tv_identificador"
+                android:textColor="#494949"
+                android:textSize="14sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv2"
+                android:layout_width="143dp"
+                android:layout_height="wrap_content"
+                android:text="@string/nombre_com_n"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_nombrecomun"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/tv_nombrecomun"
+                android:textColor="#494949"
+                android:textSize="14sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nombre_cientifico"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_nombrecientifico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/tv_nombrecientifico"
+                android:textColor="#494949"
+                android:textSize="14sp" />
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="345dp"
+        android:layout_height="397dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout">
 
         <ImageView
             android:id="@+id/iv_imagen"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginTop="15sp"
+            android:layout_height="287dp"
             android:contentDescription="@string/Descripcion_iv_imagen"
             app:srcCompat="@drawable/imagen_0" />
+
+        <Button
+            android:id="@+id/btn_todos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="#CDDC39"
+            android:onClick="BotonTodos"
+            android:text="@string/btn_todos"
+            android:textSize="18sp" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

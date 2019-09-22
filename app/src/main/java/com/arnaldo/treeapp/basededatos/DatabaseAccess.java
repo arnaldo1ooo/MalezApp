@@ -9,10 +9,9 @@ public class DatabaseAccess {
     private android.database.sqlite.SQLiteOpenHelper openHelper;
     private SQLiteDatabase db;
     private static DatabaseAccess instance;
-    Cursor cursor = null;
 
     private DatabaseAccess(Context context) {
-        this.openHelper = new SQLiteOpenHelper(context);
+        this.openHelper = new MySQLiteAssetHelper(context);
     }
 
     //Para que devuelva una sola instancia de la db
@@ -24,7 +23,7 @@ public class DatabaseAccess {
     }
 
     //Para abrir la db
-    public void open() {
+    public void abrir() {
         try {
             this.db = openHelper.getWritableDatabase();
         } catch (Exception e) {
@@ -33,18 +32,18 @@ public class DatabaseAccess {
     }
 
     //Para cerrar la db
-    public void close() {
+    public void cerrar() {
         if (db != null) {
             this.db.close();
         }
     }
 
     //Para buscar el registro por medio del indentificador
-    public String[] getEspecies(String identificador) {
+    public String[] ConsultaUnicaEspecie(String identificador) {
         String tabla = "especies";
         String columnas = "es_codigo, es_nombrecomun, es_nombrecientifico";
         String sql = "SELECT " + columnas + " FROM " + tabla + " WHERE es_identificador = '" + identificador + "'";
-        cursor = db.rawQuery(sql, new String[]{});
+        Cursor cursor = db.rawQuery(sql, new String[]{});
 
         Log.d("Buscar registro", "SQL ejecutado: " + sql);
         Log.d("Buscar registros", "Cantidad resultados " + cursor.getCount());
@@ -57,5 +56,19 @@ public class DatabaseAccess {
             Array[2] = cursor.getString(2); //Columna 3
         }
         return Array;
+    }
+
+
+    public Cursor ConsultaAllEspecies() {
+        String tabla = "especies";
+        String columnas = "es_codigo, es_identificador, es_nombrecomun, es_nombrecientifico";
+        String sql = "SELECT " + columnas + " FROM " + tabla;
+        Cursor cursor = db.rawQuery(sql, new String[]{});
+
+        Log.d("Buscar registro", "SQL ejecutado: " + sql);
+        Log.d("Buscar registros", "Cantidad resultados " + cursor.getCount());
+        Log.d("Version de BD", db.getVersion() + "");
+
+        return cursor;
     }
 }

@@ -1,14 +1,16 @@
 package com.arnaldo.treeapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.arnaldo.treeapp.basededatos.DatabaseAccess;
 
@@ -31,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
 
         et_identificador = findViewById(R.id.et_identificador);
-        btn_buscar = findViewById(R.id.btn_buscar);
         tv_identificador = findViewById(R.id.tv_identificador);
         tv_nombrecomun = findViewById(R.id.tv_nombrecomun);
         tv_nombrecientifico = findViewById(R.id.tv_nombrecientifico);
@@ -42,12 +43,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void Buscar(View view) {
         DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
-        databaseAccess.open();
+        databaseAccess.abrir();
 
         Ocultar(false);
+        OcultarTeclado();
         String identificador = et_identificador.getText().toString();
 
-        String[] Array = databaseAccess.getEspecies(identificador);
+        String[] Array = databaseAccess.ConsultaUnicaEspecie(identificador);
         String codigo = Array[0];
         String nombrecomun = Array[1];
         String nombrecientifico = Array[2];
@@ -56,12 +58,12 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "No se encontró ningún registro", Toast.LENGTH_SHORT).show();
             Ocultar(true);
         } else {
-            tv_identificador.setText("Identificador: " + identificador);
-            tv_nombrecomun.setText("Nombre común: " + nombrecomun);
-            tv_nombrecientifico.setText("Nombre científico: " + nombrecientifico);
-            iv_imagen.setImageResource(getResources().getIdentifier("imagen_" + identificador, "drawable", getPackageName()));
+            tv_identificador.setText(identificador);
+            tv_nombrecomun.setText(nombrecomun);
+            tv_nombrecientifico.setText(nombrecientifico);
+            iv_imagen.setImageResource(getResources().getIdentifier("imagen_" + codigo, "drawable", getPackageName()));
         }
-        databaseAccess.close();
+        databaseAccess.cerrar();
     }
 
 
@@ -76,6 +78,19 @@ public class MainActivity extends AppCompatActivity {
             tv_nombrecomun.setVisibility(View.VISIBLE);
             tv_nombrecientifico.setVisibility(View.VISIBLE);
             iv_imagen.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void BotonTodos(View view) {
+        Intent intent = new Intent (view.getContext(), activity_lista.class);
+        startActivityForResult(intent, 0);
+    }
+
+
+    public void OcultarTeclado() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
 }
