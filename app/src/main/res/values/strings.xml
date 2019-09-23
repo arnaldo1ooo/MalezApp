@@ -13,4 +13,8 @@
     <string name="lista_de_especies">Lista de especies</string>
     <string name="identificador">Identificador:</string>
     <string name="foto_de_la_especie">Foto de la especie</string>
+    <string name="tv_version">Version de la app: 0, Version de la BD: 0</string>
+    <string name="tv_desarrolladopor">Desarrollado por: Arnaldo Cantero</string>
+    <string name="tv_versionsplash">Versión de la app: X, Version de la BD: X</string>
+    <string name="logo_de_la_app">Logo de la app</string>
 </resources>

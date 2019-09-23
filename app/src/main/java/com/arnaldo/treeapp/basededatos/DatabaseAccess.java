@@ -27,7 +27,7 @@ public class DatabaseAccess {
         try {
             this.db = openHelper.getWritableDatabase();
         } catch (Exception e) {
-            System.out.println("Error al intentar abrir la db " + e);
+            Log.d("Abrir bd", "Error al intentar abrir bd: " + e);
         }
     }
 
@@ -36,6 +36,18 @@ public class DatabaseAccess {
         if (db != null) {
             this.db.close();
         }
+    }
+
+    //Para obtener la version actual de la BD
+    public String VersionBD() {
+        String version;
+        if (db != null) {
+            version = this.db.getVersion() + "";
+        } else {
+            this.db = openHelper.getWritableDatabase();
+            version = this.db.getVersion() + "";
+        }
+        return version;
     }
 
     //Para buscar el registro por medio del indentificador
@@ -65,9 +77,9 @@ public class DatabaseAccess {
         String sql = "SELECT " + columnas + " FROM " + tabla;
         Cursor cursor = db.rawQuery(sql, new String[]{});
 
-        Log.d("Buscar registro", "SQL ejecutado: " + sql);
-        Log.d("Buscar registros", "Cantidad resultados " + cursor.getCount());
-        Log.d("Version de BD", db.getVersion() + "");
+        Log.d("ConsultaAllEspecies", "SQL ejecutado: " + sql);
+        Log.d("ConsultaAllEspecies", "Cantidad resultados: " + cursor.getCount());
+        Log.d("ConsultaAllEspecies", "Version BD: " + db.getVersion() + "");
 
         return cursor;
     }

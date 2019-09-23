@@ -14,19 +14,19 @@ import com.arnaldo.treeapp.R;
 
 import java.util.ArrayList;
 
-public class rvLista extends RecyclerView.Adapter implements View.OnClickListener{
-   private Context context;
-   private ArrayList<itemLista> listItems; //Aca se cargaran los datos
+public class rvLista extends RecyclerView.Adapter implements View.OnClickListener {
+    private Context context;
+    private ArrayList<itemLista> listItems; //Aca se cargaran los datos
     private View.OnClickListener listener;
 
 
-    public rvLista(Context context, ArrayList<itemLista> listItems){
+    public rvLista(Context context, ArrayList<itemLista> listItems) {
         this.context = context;
         this.listItems = listItems;
     }
 
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View contentView = LayoutInflater.from(context).inflate(R.layout.rv_lista,null,false);
+        View contentView = LayoutInflater.from(context).inflate(R.layout.rv_lista, null, false);
 
         //OnClick
         contentView.setOnClickListener(this);
@@ -50,19 +50,19 @@ public class rvLista extends RecyclerView.Adapter implements View.OnClickListene
     }
 
 
-
     //Onclick
-    public void setOnClickListener(View.OnClickListener listener){
+    public void setOnClickListener(View.OnClickListener listener) {
         this.listener = listener;
     }
+
     @Override
     public void onClick(View view) {
-        if(listener != null){
+        if (listener != null) {
             listener.onClick(view);
         }
     }
 
-    public  static  class  Holder extends RecyclerView.ViewHolder{
+    public static class Holder extends RecyclerView.ViewHolder {
         ImageView ivImagen;
         TextView tv_identificador;
         TextView tv_nombrecomun;
