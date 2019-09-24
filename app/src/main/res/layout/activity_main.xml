@@ -9,11 +9,13 @@
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="349dp"
-        android:layout_height="191dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="366dp"
+        android:layout_height="185dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
         android:shrinkColumns="0"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -30,7 +32,7 @@
                 android:ems="10"
                 android:hint="@string/ingrese_el_codigo_de_la_especie"
                 android:importantForAutofill="no"
-                android:inputType="textPersonName"
+                android:inputType="number"
                 android:textSize="20sp" />
         </TableRow>
 
@@ -43,8 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_span="3"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:background="#0E4E11"
                 android:onClick="Buscar"
                 android:text="@string/buscar"
@@ -88,17 +89,17 @@
                 android:id="@+id/tv2"
                 android:layout_width="143dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:text="@string/nombre_com_n"
                 android:textColor="#000000"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_nombrecomun"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:layout_weight="2"
                 android:text="@string/tv_nombrecomun"
                 android:textColor="#494949"
@@ -113,7 +114,7 @@
                 android:id="@+id/tv3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:text="@string/nombre_cientifico"
                 android:textColor="#000000"
                 android:textSize="16sp"
@@ -123,7 +124,7 @@
                 android:id="@+id/tv_nombrecientifico"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:layout_weight="2"
                 android:text="@string/tv_nombrecientifico"
                 android:textColor="#494949"
@@ -133,18 +134,19 @@
     </TableLayout>
 
     <LinearLayout
-        android:layout_width="345dp"
-        android:layout_height="397dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="366dp"
+        android:layout_height="394dp"
         android:orientation="vertical"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintHorizontal_bias="0.533"
+        ads:layout_constraintVertical_bias="0.2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout">
 
         <ImageView
             android:id="@+id/iv_imagen"
-            android:layout_width="296dp"
+            android:layout_width="323dp"
             android:layout_height="241dp"
             android:layout_gravity="center"
             android:contentDescription="@string/Descripcion_iv_imagen"

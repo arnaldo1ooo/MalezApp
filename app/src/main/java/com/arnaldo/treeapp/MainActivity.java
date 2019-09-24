@@ -1,8 +1,6 @@
 package com.arnaldo.treeapp;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,8 +16,6 @@ import com.arnaldo.treeapp.basededatos.DatabaseAccess;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,13 +27,12 @@ public class MainActivity extends AppCompatActivity {
     private String identiseleccionado;
     private TextView tv_version;
     private AdView adView;
-    private InterstitialAd mInterstitialAd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         //Activar icono en actionbar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -50,10 +45,11 @@ public class MainActivity extends AppCompatActivity {
         iv_imagen = findViewById(R.id.iv_imagen);
         tv_version = findViewById(R.id.tv_version);
 
+        String version = getIntent().getExtras().getString("version");
+        tv_version.setText(version);
         OcultarObjetos(true);
         IdentiRecibido();
         Banner();
-        Interstitial();
     }
 
     private void IdentiRecibido() {
@@ -65,11 +61,14 @@ public class MainActivity extends AppCompatActivity {
             Log.d("IdentiRecibido", "No se pasó ningun identificador: " + e);
         }
     }
-
+    int idimagen;
     public void Buscar(View view) {
         String identificador = et_identificador.getText().toString();
         if (identificador.isEmpty() == true) {
             Toast.makeText(this, "Escriba el identificador de la especie", Toast.LENGTH_SHORT).show();
+            Vaciar();
+            OcultarObjetos(true);
+
         } else {
             DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
             databaseAccess.abrir();
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 tv_identificador.setText(identificador);
                 tv_nombrecomun.setText(nombrecomun);
                 tv_nombrecientifico.setText(nombrecientifico);
-                iv_imagen.setImageResource(getResources().getIdentifier("imagen_" + codigo, "drawable", getPackageName()));
+                ObtenerImagen(codigo);
             }
             databaseAccess.cerrar();
             OcultarObjetos(false);
@@ -94,7 +93,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void ObtenerImagen(String codigo) {
+        idimagen = getResources().getIdentifier("imagen_" + codigo, "drawable", getPackageName());
+        if (idimagen == 0) { //Si imagen no existe
+            idimagen = getResources().getIdentifier("imagen_" + 0, "drawable", getPackageName());
+            iv_imagen.setImageResource(idimagen);
+        } else {
+            iv_imagen.setImageResource(idimagen);
+        }
+    }
 
+    private void Vaciar(){
+        tv_identificador.setText("");
+        tv_nombrecomun.setText("");
+        tv_nombrecomun.setText("");
+    }
     private void OcultarObjetos(Boolean ocultar) {
         if (ocultar == true) {
             tv_identificador.setVisibility(View.INVISIBLE);
@@ -120,22 +133,6 @@ public class MainActivity extends AppCompatActivity {
             InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
-    }
-
-
-    private String ObtenerVersionApp() {
-        //Obtener version actual de la app
-        String versionApp = "null";
-        try {
-            PackageInfo packageInfo;
-            packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            versionApp = String.valueOf(packageInfo.versionName);
-        } catch (PackageManager.NameNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), "No se puede cargar la version actual!", Toast.LENGTH_LONG).show();
-        }
-        return versionApp;
     }
 
     private void Banner() {
@@ -175,44 +172,6 @@ public class MainActivity extends AppCompatActivity {
             public void onAdClosed() {
                 // Código a ejecutar cuando el usuario está a punto de regresar
                 // a la aplicación después de pulsar en un anuncio.
-            }
-        });
-    }
-
-
-    private void Interstitial() {
-        MobileAds.initialize(this, "ca-app-pub-8474453660271942/1150495372"); //Este es el id para pruebas
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-8474453660271942/1150495372");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-        mInterstitialAd.show();
-
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                if (mInterstitialAd.isLoaded()) {// Código que se ejecutará cuando un anuncio termine de cargarse.
-                    mInterstitialAd.show(); //Mostrar el Interstittial luego de crearlo
-                }
-            }
-
-            @Override
-            public void onAdOpened() {// Código que se ejecutará cuando se muestre el anuncio.
-
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {// Código que se ejecutará cuando una solicitud de anuncio falle.
-
-            }
-
-            @Override
-            public void onAdLeftApplication() {// Código que se ejecutará cuando el usuario haya abandonado la aplicación.
-            }
-
-            @Override
-            public void onAdClosed() {// Código que se ejecutará cuando el anuncio intersticial esté cerrado.
-
             }
         });
     }

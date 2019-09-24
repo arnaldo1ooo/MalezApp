@@ -15,6 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arnaldo.treeapp.basededatos.DatabaseAccess;
 import com.arnaldo.treeapp.rv_lista.itemLista;
 import com.arnaldo.treeapp.rv_lista.rvLista;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
@@ -22,6 +25,8 @@ public class ActivityLista extends AppCompatActivity {
     private RecyclerView recyclerview;
     private RecyclerView.Adapter adaptador;
     private LinearLayoutManager layoutManager;
+    private AdView adView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,7 @@ public class ActivityLista extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true); //Activar icono en actionbar
         getSupportActionBar().setIcon(R.mipmap.ic_launcher); //Asignar icono
         CargarConsultaaRV();
+        Banner();
     }
 
     private void CargarConsultaaRV() {
@@ -99,8 +105,47 @@ public class ActivityLista extends AppCompatActivity {
         }
         Log.d("CargarConsultaaRV", "Se cargó todos los registros de la tabla especie al Recycler View");
         databaseAccess.cerrar();
-
         return listItems;
+    }
 
+    private void Banner() {
+        adView = findViewById(R.id.adView2);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Código a ejecutar cuando un anuncio termina de cargarse.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Código a ejecutar cuando falla una solicitud de anuncio.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Código que se ejecutará cuando un anuncio abra una
+                // superposición que cubre la pantalla.
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Código que se ejecutará cuando el usuario
+                // haga clic en un anuncio.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Código a ejecutar cuando el usuario
+                // ha abandonado la aplicación.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Código a ejecutar cuando el usuario está a punto de regresar
+                // a la aplicación después de pulsar en un anuncio.
+            }
+        });
     }
 }

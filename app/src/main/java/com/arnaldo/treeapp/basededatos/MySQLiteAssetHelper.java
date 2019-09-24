@@ -16,7 +16,7 @@ import java.io.OutputStream;
 
 public class MySQLiteAssetHelper extends com.readystatesoftware.sqliteasset.SQLiteAssetHelper {
     private static final String BD_NOMBRE = "treeapp.db";
-    private static final int BD_VERSION = 4;
+    private static final int BD_VERSION = 5;
     private final Context myContext;
     private static String DB_PATH = "";
 
