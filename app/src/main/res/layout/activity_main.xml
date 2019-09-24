@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -39,8 +40,9 @@
 
             <Button
                 android:id="@+id/btn_buscar"
-                android:layout_width="206dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:layout_span="3"
                 android:layout_weight="1"
                 android:background="#0E4E11"
@@ -142,8 +144,9 @@
 
         <ImageView
             android:id="@+id/iv_imagen"
-            android:layout_width="match_parent"
-            android:layout_height="287dp"
+            android:layout_width="296dp"
+            android:layout_height="241dp"
+            android:layout_gravity="center"
             android:contentDescription="@string/Descripcion_iv_imagen"
             app:srcCompat="@drawable/imagen_0" />
 
@@ -151,6 +154,7 @@
             android:id="@+id/btn_todos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="18dp"
             android:background="#CDDC39"
             android:onClick="BotonTodos"
@@ -162,9 +166,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:gravity="right"
+            android:gravity="end"
             android:text="@string/tv_version"
             android:textSize="12sp" />
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-8474453660271942/9184800934" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.arnaldo.treeapp.basededatos.DatabaseAccess;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,11 +30,14 @@ public class MainActivity extends AppCompatActivity {
     private ImageView iv_imagen;
     private String identiseleccionado;
     private TextView tv_version;
+    private AdView adView;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         //Activar icono en actionbar
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -44,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
         OcultarObjetos(true);
         IdentiRecibido();
+        Banner();
+        Interstitial();
     }
 
     private void IdentiRecibido() {
@@ -126,5 +136,84 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "No se puede cargar la version actual!", Toast.LENGTH_LONG).show();
         }
         return versionApp;
+    }
+
+    private void Banner() {
+        adView = findViewById(R.id.adView1);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Código a ejecutar cuando un anuncio termina de cargarse.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Código a ejecutar cuando falla una solicitud de anuncio.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Código que se ejecutará cuando un anuncio abra una
+                // superposición que cubre la pantalla.
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Código que se ejecutará cuando el usuario
+                // haga clic en un anuncio.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Código a ejecutar cuando el usuario
+                // ha abandonado la aplicación.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Código a ejecutar cuando el usuario está a punto de regresar
+                // a la aplicación después de pulsar en un anuncio.
+            }
+        });
+    }
+
+
+    private void Interstitial() {
+        MobileAds.initialize(this, "ca-app-pub-8474453660271942/1150495372"); //Este es el id para pruebas
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-8474453660271942/1150495372");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.show();
+
+        mInterstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                if (mInterstitialAd.isLoaded()) {// Código que se ejecutará cuando un anuncio termine de cargarse.
+                    mInterstitialAd.show(); //Mostrar el Interstittial luego de crearlo
+                }
+            }
+
+            @Override
+            public void onAdOpened() {// Código que se ejecutará cuando se muestre el anuncio.
+
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {// Código que se ejecutará cuando una solicitud de anuncio falle.
+
+            }
+
+            @Override
+            public void onAdLeftApplication() {// Código que se ejecutará cuando el usuario haya abandonado la aplicación.
+            }
+
+            @Override
+            public void onAdClosed() {// Código que se ejecutará cuando el anuncio intersticial esté cerrado.
+
+            }
+        });
     }
 }

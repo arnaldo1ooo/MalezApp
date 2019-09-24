@@ -103,9 +103,4 @@ public class ActivityLista extends AppCompatActivity {
         return listItems;
 
     }
-
-
-    public void ClickRV(View view) {
-
-    }
 }
