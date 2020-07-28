@@ -1,4 +1,4 @@
-package com.arnaldo.treeapp.rv_lista;
+package com.arnaldo.malezapp.rv_lista;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arnaldo.treeapp.R;
+import com.arnaldo.malezapp.R;
 
 import java.util.ArrayList;
 
@@ -38,10 +38,10 @@ public class rvLista extends RecyclerView.Adapter implements View.OnClickListene
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         itemLista item = listItems.get(position);
         Holder Holder = (Holder) holder;
+        Holder.tvCodigo.setText(item.getCodigo());
         Holder.ivImagen.setImageResource(item.getImagen());
-        Holder.tv_identificador.setText(item.getIdentificador());
-        Holder.tv_nombrecomun.setText(item.getNombrecomun());
-        Holder.tv_nombrecientifico.setText(item.getNombrecientifico());
+        Holder.tvNombrecomun.setText(item.getNombrecomun());
+        Holder.tvNombrecientifico.setText(item.getNombrecientifico());
     }
 
     @Override
@@ -63,17 +63,17 @@ public class rvLista extends RecyclerView.Adapter implements View.OnClickListene
     }
 
     public static class Holder extends RecyclerView.ViewHolder {
+        TextView tvCodigo;
         ImageView ivImagen;
-        TextView tv_identificador;
-        TextView tv_nombrecomun;
-        TextView tv_nombrecientifico;
+        TextView tvNombrecomun;
+        TextView tvNombrecientifico;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
+            tvCodigo = itemView.findViewById(R.id.tvCodigo);
             ivImagen = itemView.findViewById(R.id.ivImagen);
-            tv_identificador = itemView.findViewById(R.id.tv_identificador2);
-            tv_nombrecomun = itemView.findViewById(R.id.tv_nombrecomun2);
-            tv_nombrecientifico = itemView.findViewById(R.id.tv_nombrecientifico2);
+            tvNombrecomun = itemView.findViewById(R.id.tvNombrecomun);
+            tvNombrecientifico = itemView.findViewById(R.id.tvNombrecientifico);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.arnaldo.treeapp.basededatos;
+package com.arnaldo.malezapp.conexion;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,8 +15,8 @@ import java.io.OutputStream;
 
 
 public class MySQLiteAssetHelper extends com.readystatesoftware.sqliteasset.SQLiteAssetHelper {
-    private static final String BD_NOMBRE = "treeapp.db";
-    private static final int BD_VERSION = 5;
+    private static final String BD_NOMBRE = "malezapp.db";
+    private static final int BD_VERSION = 13; //Incrementar el numero para que vuelva a cargar la bd
     private final Context myContext;
     private static String DB_PATH = "";
 
@@ -24,6 +24,8 @@ public class MySQLiteAssetHelper extends com.readystatesoftware.sqliteasset.SQLi
         super(context, BD_NOMBRE, null, BD_VERSION);
         DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
         this.myContext = context;
+
+        setForcedUpgrade(); //Metodo para forzar una sobrescritura de la base de datos cada vez que se incremente el número de versión
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

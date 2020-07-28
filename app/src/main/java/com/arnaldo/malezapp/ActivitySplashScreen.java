@@ -1,4 +1,4 @@
-package com.arnaldo.treeapp;
+package com.arnaldo.malezapp;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,10 +6,11 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.arnaldo.treeapp.basededatos.DatabaseAccess;
+import com.arnaldo.malezapp.conexion.Conexion;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -20,6 +21,13 @@ public class ActivitySplashScreen extends Activity {
     private String versionApp;
     private InterstitialAd mInterstitialAd;
     String versionBD;
+
+
+    //Para evitar que se cierre al oprimir boton atras
+    @Override
+    public void onBackPressed() {
+        Log.d("BotonAtras", "Se oprimió el botón atrás");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +44,10 @@ public class ActivitySplashScreen extends Activity {
             versionApp = packageInfo.versionName;
 
             //Revisa si hay acutalizacioens de la bd y obtiene la version de la bd
-            DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
-            databaseAccess.abrir();
-            versionBD = databaseAccess.VersionBD();
-            databaseAccess.cerrar();
+            Conexion conexion = Conexion.getInstance(getApplicationContext());
+            conexion.Abrir();
+            versionBD = conexion.VersionBD();
+            conexion.Cerrar();
         } catch (PackageManager.NameNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -52,11 +60,20 @@ public class ActivitySplashScreen extends Activity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(ActivitySplashScreen.this, MainActivity.class);
-                intent.putExtra("version", tv_version.getText().toString());
-                startActivity(intent);
+                if (seAbrióNextActivity == false) {
+                    AbrirNextActivity();
+                }
             }
         }, 3000);
+    }
+
+    Boolean seAbrióNextActivity = false;
+    private void AbrirNextActivity() {
+        Intent intent = new Intent(ActivitySplashScreen.this, ActivityPrincipal.class);
+        intent.putExtra("version", tv_version.getText().toString());
+        startActivity(intent);
+        seAbrióNextActivity = true;
+        finish();
     }
 
     private void Interstitial() {
@@ -90,7 +107,10 @@ public class ActivitySplashScreen extends Activity {
 
             @Override
             public void onAdClosed() {// Código que se ejecutará cuando el anuncio intersticial esté cerrado.
-
+                Log.d("Interstititial", "Se cerró interstitial");
+                if (seAbrióNextActivity == false) {
+                    AbrirNextActivity();
+                }
             }
         });
     }

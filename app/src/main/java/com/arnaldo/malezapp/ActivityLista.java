@@ -1,20 +1,18 @@
-package com.arnaldo.treeapp;
+package com.arnaldo.malezapp;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.arnaldo.treeapp.basededatos.DatabaseAccess;
-import com.arnaldo.treeapp.rv_lista.itemLista;
-import com.arnaldo.treeapp.rv_lista.rvLista;
+import com.arnaldo.malezapp.conexion.Conexion;
+import com.arnaldo.malezapp.rv_lista.itemLista;
+import com.arnaldo.malezapp.rv_lista.rvLista;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -47,29 +45,22 @@ public class ActivityLista extends AppCompatActivity {
         recyclerview.setLayoutManager(layoutManager);
 
         //Adaptador
-        adaptador = new rvLista(this, MetodoListItem());
+        adaptador = new rvLista(this, LlenarLista());
 
 
         //OnClick
         ((rvLista) adaptador).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Guardo el identificador seleccionado
-                String identiseleccionado = MetodoListItem().get(
-                        recyclerview.getChildAdapterPosition(view)).getIdentificador();
+                //Guardo el codigo del registro seleccionado
+                String codSelect = LlenarLista().get(recyclerview.getChildAdapterPosition(view)).getCodigo();
 
                 Intent intent;
-                intent = new Intent(ActivityLista.this, MainActivity.class);
-                intent.putExtra("identiseleccionado", identiseleccionado);
+                intent = new Intent(ActivityLista.this, ActivityDetalle.class);
+                intent.putExtra("codigoSeleccionado", codSelect);
                 startActivity(intent);
-
-                //Imprime el titulo del item seleccionado
-                Toast.makeText(getApplicationContext(), "Identificador seleccionado: " + MetodoListItem().get(
-                        recyclerview.getChildAdapterPosition(view)).getIdentificador(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
         recyclerview.setAdapter(adaptador);
 
@@ -79,32 +70,28 @@ public class ActivityLista extends AppCompatActivity {
     }
 
 
-    private ArrayList<itemLista> MetodoListItem() {
-        DatabaseAccess databaseAccess = DatabaseAccess.getInstance(getApplicationContext());
-        databaseAccess.abrir();
-        Cursor cursor = databaseAccess.ConsultaAllEspecies();
+    private ArrayList<itemLista> LlenarLista() {
+        Conexion conexion = new Conexion(this);
+        conexion.Abrir();
+        Cursor cursor = conexion.EjecutarSQL("SELECT mal_codigo, mal_nombrecomun, mal_nombrecientifico FROM maleza, familia " +
+                "WHERE mal_familia=fam_codigo");
+
         ArrayList<itemLista> listItems = new ArrayList<>();
-
-        String identificador;
-        String nombrecomun;
-        String nombrecientifico;
-
         while (cursor.moveToNext() == true) {
             String codigo = cursor.getString(0); //Columna 0
             int idimagen = getResources().getIdentifier("imagen_" + codigo, "drawable", getPackageName());
-            identificador = cursor.getString(1); //Columna 1
-            nombrecomun = cursor.getString(2); //Columna 2
-            nombrecientifico = cursor.getString(3); //Columna 3
-            //Log.d("SQL", "Codigo: " + codigo + ", Id: " + identificador + ", nomrecom: " + nombrecomun + ", nombrecie: " + nombrecientifico);
+            String nombrecomun = cursor.getString(1); //Columna 1
+            String nombrecientifico = cursor.getString(2); //Columna 2
 
-            if (idimagen == 0) { //Si imagen no existe
-                listItems.add(new itemLista(R.drawable.imagen_0, identificador, nombrecomun, nombrecientifico));
+            if (idimagen == 0) { //Si imagen no existe poner imagen por default
+                listItems.add(new itemLista(codigo, R.drawable.imagen_0, nombrecomun, nombrecientifico));
             } else {
-                listItems.add(new itemLista(idimagen, identificador, nombrecomun, nombrecientifico));
+                listItems.add(new itemLista(codigo, idimagen, nombrecomun, nombrecientifico));
             }
         }
-        Log.d("CargarConsultaaRV", "Se cargó todos los registros de la tabla especie al Recycler View");
-        databaseAccess.cerrar();
+        cursor.close();
+        conexion.Cerrar();
+
         return listItems;
     }
 

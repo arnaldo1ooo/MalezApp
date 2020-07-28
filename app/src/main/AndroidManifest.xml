@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.arnaldo.treeapp">
+    package="com.arnaldo.malezapp">
 
     <application
         android:allowBackup="true"
@@ -9,26 +9,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".ActivitySplashScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action
+                    android:name="android.intent.action.MAIN" />
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".ActivityLista"
-            android:parentActivityName=".MainActivity">
+        <activity
+            android:name=".ActivityDetalle"
+            android:parentActivityName=".ActivityLista">
         </activity>
 
-        <activity android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan">
+        <activity
+            android:name=".ActivityPrincipal">
+
         </activity>
+
+        <activity
+            android:name=".ActivityLista"
+            android:parentActivityName=".ActivityPrincipal" />
+
+        <activity
+            android:name=".ActivityBuscador"
+            android:windowSoftInputMode="adjustPan" />
 
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
-            android:value="true"/>
+            android:value="true" />
     </application>
 </manifest>

@@ -1,24 +1,24 @@
-package com.arnaldo.treeapp.rv_lista;
+package com.arnaldo.malezapp.rv_lista;
 
 public class itemLista {
+    private String codigo;
     private int imagen;
-    private String identificador;
     private String nombrecomun;
     private String nombrecientifico;
 
-    public itemLista(int imagen, String identificador, String nombrecomun, String nombrecientifico){
+    public itemLista(String codigo, int imagen, String nombrecomun, String nombrecientifico){
+        this.codigo = codigo;
         this.imagen = imagen;
-        this.identificador =identificador;
         this.nombrecomun = nombrecomun;
         this.nombrecientifico = nombrecientifico;
     }
 
-    public int getImagen() {
-        return imagen;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public String getIdentificador() {
-        return identificador;
+    public int getImagen() {
+        return imagen;
     }
 
     public String getNombrecomun() {

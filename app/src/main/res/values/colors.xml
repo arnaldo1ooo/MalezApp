@@ -3,4 +3,9 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="fondoOscuro">#34595E</color>
+    <color name="plateado">#D0D3D4</color>
+    <color name="aqua">#76D7C4</color>
+    <color name="transparente">#00000000</color>
 </resources>

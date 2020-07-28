@@ -1,4 +1,4 @@
-package com.arnaldo.treeapp;
+package com.arnaldo.malezapp;
 
 import org.junit.Test;
 
