@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arnaldo.malezapp.conexion.Conexion;
+import com.arnaldo.malezapp.principal.ActivityPrincipal;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -64,7 +65,7 @@ public class ActivitySplashScreen extends Activity {
                     AbrirNextActivity();
                 }
             }
-        }, 3000);
+        }, 4000);
     }
 
     Boolean seAbrióNextActivity = false;

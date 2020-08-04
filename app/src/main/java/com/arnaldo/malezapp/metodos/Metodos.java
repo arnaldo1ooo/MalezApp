@@ -1,18 +1,25 @@
 package com.arnaldo.malezapp.metodos;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import com.arnaldo.malezapp.R;
+import com.arnaldo.malezapp.conexion.Conexion;
+
+import java.util.ArrayList;
 
 public class Metodos {
-    public void EfectoBlur(ImageView elImageView, float radio, Context elContext){ //el radio puede ser de 0f a 25f
+    Conexion conexion;
+
+    public void EfectoBlur(ImageView elImageView, float radio, Context elContext) { //el radio puede ser de 0f a 25f
         Bitmap bitmap = BitmapFactory.decodeResource(elContext.getResources(), R.drawable.fondo_splash);
         Bitmap salidaBitMap = Bitmap.createBitmap(bitmap);
         final RenderScript renderScript = RenderScript.create(elContext);
@@ -26,5 +33,25 @@ public class Metodos {
         salidaTemp.copyTo(salidaBitMap);
 
         elImageView.setImageBitmap(salidaBitMap);
+    }
+
+    public ArrayAdapter PoblarSpinner(Context context, int spinner_formato, String sentenciaSQL) {
+        //Poblar spinner
+        conexion = new Conexion(context);
+        conexion.Abrir();
+        Cursor cursor = conexion.EjecutarSQL(sentenciaSQL);
+
+        ArrayList<String> listaArray = new ArrayList<>();
+        listaArray.add("TODOS");
+        while (cursor.moveToNext() == true) {
+            listaArray.add(new String(cursor.getString(1)));
+        }
+
+        ArrayAdapter<String> adaptadorArray = new ArrayAdapter<String>(context, spinner_formato, listaArray); //spinner formato por defecto android.R.layout.simple_spinner_item
+
+        cursor.close();
+        conexion.Cerrar();
+
+        return adaptadorArray;
     }
 }

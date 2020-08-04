@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -18,12 +19,15 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class ActivityLista extends AppCompatActivity {
     private RecyclerView recyclerview;
     private RecyclerView.Adapter adaptador;
     private LinearLayoutManager layoutManager;
     private AdView adView;
+    private String consultaSQL;
+    private TextView tvTituloLista;
 
 
     @Override
@@ -34,18 +38,32 @@ public class ActivityLista extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Boton atras
         getSupportActionBar().setDisplayShowHomeEnabled(true); //Activar icono en actionbar
         getSupportActionBar().setIcon(R.mipmap.ic_launcher); //Asignar icono
-        CargarConsultaaRV();
+
+        tvTituloLista = findViewById(R.id.tvTituloLista);
+
+
+        try {
+            consultaSQL = getIntent().getExtras().getString("consultaSQL").toString();
+            tvTituloLista.setText("Malezas encontradas");
+        } catch (Exception e) {
+            tvTituloLista.setText("Lista completa de malezas");
+            consultaSQL = "SELECT mal_codigo, mal_nombrecomun, mal_nombrecientifico FROM maleza, familia WHERE mal_familia=fam_codigo ORDER BY mal_nombrecomun";
+        }
+
+        CargarConsultaaRV(ConsultaBD(consultaSQL));
+
+
         Banner();
     }
 
-    private void CargarConsultaaRV() {
+    private void CargarConsultaaRV(ArrayList<itemLista> laLista) {
         //Se crea el recyclerview y adaptador
         recyclerview = (RecyclerView) findViewById(R.id.rv_principal);
         layoutManager = new LinearLayoutManager(this);
         recyclerview.setLayoutManager(layoutManager);
 
         //Adaptador
-        adaptador = new rvLista(this, LlenarLista());
+        adaptador = new rvLista(this, laLista);
 
 
         //OnClick
@@ -53,7 +71,7 @@ public class ActivityLista extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Guardo el codigo del registro seleccionado
-                String codSelect = LlenarLista().get(recyclerview.getChildAdapterPosition(view)).getCodigo();
+                String codSelect = laLista.get(recyclerview.getChildAdapterPosition(view)).getCodigo();
 
                 Intent intent;
                 intent = new Intent(ActivityLista.this, ActivityDetalle.class);
@@ -70,17 +88,28 @@ public class ActivityLista extends AppCompatActivity {
     }
 
 
-    private ArrayList<itemLista> LlenarLista() {
+    private ArrayList<itemLista> ConsultaBD(String consultaSQL) {
         Conexion conexion = new Conexion(this);
         conexion.Abrir();
-        Cursor cursor = conexion.EjecutarSQL("SELECT mal_codigo, mal_nombrecomun, mal_nombrecientifico FROM maleza, familia " +
-                "WHERE mal_familia=fam_codigo");
-
+        Cursor cursor = conexion.EjecutarSQL(consultaSQL);
+        int cantnombres;
         ArrayList<itemLista> listItems = new ArrayList<>();
         while (cursor.moveToNext() == true) {
             String codigo = cursor.getString(0); //Columna 0
-            int idimagen = getResources().getIdentifier("imagen_" + codigo, "drawable", getPackageName());
+            int idimagen = getResources().getIdentifier("imagen_" + codigo + "a", "drawable", getPackageName());
+
             String nombrecomun = cursor.getString(1); //Columna 1
+            String separador = Pattern.quote(", "); //El caracter en dodne se cortara
+            if (nombrecomun.contains(", ")) {
+                String[] stringsplit = nombrecomun.split(separador);
+                cantnombres = stringsplit.length - 2;
+                if (cantnombres > 0) {
+                    nombrecomun = stringsplit[0] + ", " + stringsplit[1] + " (más " + cantnombres + ")";
+                } else {
+                    nombrecomun = stringsplit[0] + ", " + stringsplit[1];
+                }
+            }
+
             String nombrecientifico = cursor.getString(2); //Columna 2
 
             if (idimagen == 0) { //Si imagen no existe poner imagen por default
@@ -93,6 +122,12 @@ public class ActivityLista extends AppCompatActivity {
         conexion.Cerrar();
 
         return listItems;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
     }
 
     private void Banner() {

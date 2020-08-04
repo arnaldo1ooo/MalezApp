@@ -1,56 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityPrincipal">
+    android:fitsSystemWindows="true"
+    tools:context=".principal.ActivityPrincipal">
 
-    <ImageView
-        android:id="@+id/ivFondo"
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="@string/Descripcion_iv_imagen"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/fondo_splash" />
+        android:layout_marginBottom="56dp"></FrameLayout>
 
-    <Button
-        android:id="@+id/btnPrincipal1"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="300dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="64dp"
-        android:background="@drawable/btn_skin_ovalo"
-        android:onClick="Boton1"
-        android:text="@string/btn_principal1"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnPrincipal2"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="300dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/btn_skin_ovalo"
-        android:onClick="Boton2"
-        android:text="@string/btn_principal2"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPrincipal1" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/btnNaView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:animateLayoutChanges="true"
+        android:animationCache="true"
+        android:background="#009688"
+        android:scrollbarSize="8dp"
+        android:soundEffectsEnabled="true"
+        app:elevation="8dp"
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemIconSize="29dp"
+        app:itemIconTint="@drawable/menu_inferior_color"
+        app:itemTextColor="@color/ic_launcher_background"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/menu_inferior_items"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

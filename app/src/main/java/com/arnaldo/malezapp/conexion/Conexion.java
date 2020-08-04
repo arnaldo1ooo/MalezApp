@@ -51,8 +51,9 @@ public class Conexion {
     }
 
     public Cursor EjecutarSQL(String sentencia) {
+        System.out.println("Sentencia a ejecutar: " + sentencia);
         Cursor cursor = db.rawQuery(sentencia, new String[]{});
-        System.out.println("Sentencia ejecutada: " + sentencia);
+
         return cursor;
     }
 }

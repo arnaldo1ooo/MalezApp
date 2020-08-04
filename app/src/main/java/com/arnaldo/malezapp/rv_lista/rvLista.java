@@ -71,7 +71,7 @@ public class rvLista extends RecyclerView.Adapter implements View.OnClickListene
         public Holder(@NonNull View itemView) {
             super(itemView);
             tvCodigo = itemView.findViewById(R.id.tvCodigo);
-            ivImagen = itemView.findViewById(R.id.ivImagen);
+            ivImagen = itemView.findViewById(R.id.ivImagen1);
             tvNombrecomun = itemView.findViewById(R.id.tvNombrecomun);
             tvNombrecientifico = itemView.findViewById(R.id.tvNombrecientifico);
         }

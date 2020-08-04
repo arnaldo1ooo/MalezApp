@@ -7,40 +7,125 @@
     android:layout_height="match_parent"
     tools:context=".ActivityBuscador">
 
-    <ScrollView
-        android:layout_width="371dp"
-        android:layout_height="671dp"
-        android:layout_marginTop="16dp"
+    <TextView
+        android:id="@+id/tvTituloLista3"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:background="#8BC34A"
+        android:gravity="center"
+        android:text="@string/titulobusqueda"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"
-        ads:layout_constraintTop_toTopOf="parent">
+        ads:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toBottomOf="@+id/tvTituloLista3"
+        ads:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
-            android:layout_width="370dp"
+            android:layout_width="match_parent"
             android:layout_height="596dp"
             android:orientation="vertical"
             ads:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-            <EditText
-                android:id="@+id/etBuscarPorNC"
+            <TextView
+                android:id="@+id/tvTitulo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:text="@string/tvTituloBuscar1"
+                android:textColor="#000000"
+                android:textColorHighlight="#781B1B"
+                android:textColorHint="#8A3535"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etBuscarNomCom"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/etBuscarPorNC"
+                android:hint="@string/etBuscar1"
                 android:importantForAutofill="no"
-                android:inputType="number"
+                android:inputType="text"
                 android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvTitulo2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:text="@string/tvTituloBuscar2"
+                android:textColor="#000000"
+                android:textColorHighlight="#781B1B"
+                android:textColorHint="#8A3535"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etBuscarNomCien"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/etBuscar2"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvTitulo3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:text="@string/tvTituloBuscar3"
+                android:textColor="#000000"
+                android:textColorHighlight="#781B1B"
+                android:textColorHint="#8A3535"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spFamilia"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/btn_buscar"
                 android:layout_width="332dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:layout_weight="2"
-                android:background="#0E4E11"
+                android:background="#8BC34A"
                 android:onClick="Buscar"
                 android:text="@string/buscar"
                 android:textColor="#FFFFFF"
@@ -51,9 +136,11 @@
                 android:id="@+id/adView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 ads:adSize="BANNER"
                 ads:adUnitId="ca-app-pub-8474453660271942/9184800934" />
 
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

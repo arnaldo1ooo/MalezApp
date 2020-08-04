@@ -1,17 +1,18 @@
 <resources>
     <string name="app_name">MalezApp</string>
-    <string name="etBuscarPorNC">Ingrese el nombre común de la maleza</string>
     <string name="buscar">Buscar</string>
     <string name="resultado">Especie: especie</string>
     <string name="Descripcion_iv_imagen">Foto del árbol</string>
-    <string name="btn_principal1">Todos las malezas</string>
+    <string name="btn_principal1">Todas las malezas</string>
     <string name="btn_principal2">Búsqueda</string>
-    <string name="tv_identificador">Identificador:</string>
-    <string name="tv_nombrecomun">Nombre común:</string>
-    <string name="tv_nombre_cientifico">Nombre cientifico:</string>
-    <string name="tv_familia">Familia:</string>
-    <string name="tv_reconocidopor">Reconocido por:</string>
+    <string name="tv_identificador">Identificador</string>
+    <string name="tv_nombrecomun">Nombre común</string>
+    <string name="tv_nombre_cientifico">Nombre cientifico</string>
+    <string name="tv_familia">Familia</string>
+    <string name="tv_reconocidopor">Reconocido por</string>
     <string name="titulolista">Listado de malezas</string>
+    <string name="titulolista2">Seleccione como buscar</string>
+    <string name="titulobusqueda">Búsqueda de malezas</string>
     <string name="titulomaleza">Titulo de la maleza</string>
     <string name="foto_de_la_especie">Foto de la especie</string>
     <string name="tv_version">Version de la app: 0, Version de la BD: 0</string>
@@ -19,11 +20,23 @@
     <string name="tv_versionsplash">Versión de la app: X,  Version de la BD: X</string>
     <string name="logo_de_la_app">Logo de la app</string>
     <string name="tvCodigo">Codigo</string>
-    <string name="tvDescripcion">Descripción:</string>
+    <string name="tvDescripcion">Descripción</string>
     <string name="tvCiclo">Ciclo:</string>
-    <string name="tvEcologia">Ecología:</string>
-    <string name="tvDistribucion">Distribución:</string>
-    <string name="tvEspeciesSimi">Especies similares:</string>
-    <string name="tvTipoHoja">Tipo de hoja:</string>
-    <string name="tvResistencia">Resistencia:</string>
+    <string name="tvEcologia">Ecología</string>
+    <string name="tvDistribucion">Distribución</string>
+    <string name="tvEspeciesSimi">Especies similares</string>
+    <string name="tvTipoHoja">Tipo de hoja</string>
+    <string name="tvResistencia">Resistencia</string>
+    <string name="tvTituloBuscar1">Ingrese el nombre común</string>
+    <string name="etBuscar1">Ej: Pasto estrella</string>
+    <string name="tvTituloBuscar2">Ingrese el nombre científico</string>
+    <string name="tvTituloBuscar3">Familia</string>
+    <string name="etBuscar2">Ej: Cynodon plectostachyus</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="fg_1">Fragmento Home</string>
+    <string name="fg_2">Fragmento Buscar maleza</string>
+    <string name="buscarNombreComun">Nombre común</string>
+    <string name="buscarNombreCien">Nombre científico</string>
+    <string name="buscarFamilia">Familia</string>
+
 </resources>

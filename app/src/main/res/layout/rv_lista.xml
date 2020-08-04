@@ -24,7 +24,7 @@
             android:layout_marginEnd="22dp">
 
             <ImageView
-                android:id="@+id/ivImagen"
+                android:id="@+id/ivImagen1"
                 android:layout_width="63dp"
                 android:layout_height="92dp"
                 android:layout_marginStart="5dp"

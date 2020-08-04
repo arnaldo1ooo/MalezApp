@@ -18,7 +18,9 @@ import com.google.android.gms.ads.AdView;
 import java.util.regex.Pattern;
 
 public class ActivityDetalle extends AppCompatActivity {
-    private ImageView ivImagen;
+    private ImageView ivImagen1;
+    private ImageView ivImagen2;
+    private ImageView ivImagen3;
     private TextView tvNombreComun;
     private TextView tvNombreCientifico;
     private TextView tvFamilia;
@@ -41,7 +43,9 @@ public class ActivityDetalle extends AppCompatActivity {
         setContentView(R.layout.activity_detalle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Activar boton atras
 
-        ivImagen = findViewById(R.id.ivImagen);
+        ivImagen1 = findViewById(R.id.ivImagen1);
+        ivImagen2 = findViewById(R.id.ivImagen2);
+        ivImagen3 = findViewById(R.id.ivImagen3);
         tvNombreComun = findViewById(R.id.tvNombreComun2);
         tvNombreCientifico = findViewById(R.id.tvNombreCientifico2);
         tvFamilia = findViewById(R.id.tvFamilia2);
@@ -64,14 +68,44 @@ public class ActivityDetalle extends AppCompatActivity {
                 "FROM maleza, familia, tipo_hoja " +
                 "WHERE mal_familia=fam_codigo AND mal_tipohoja = th_codigo AND mal_codigo=" + codigoSeleccionado);
 
+        int idimagen1;
+        int idimagen2;
+        int idimagen3;
         while (cursor.moveToNext()) {
-            int idimagen = getResources().getIdentifier("imagen_" + cursor.getString(0), "drawable", getPackageName());
-            if (idimagen == 0) { //Si imagen no existe
-                idimagen = getResources().getIdentifier("imagen_" + 0, "drawable", getPackageName());
-                ivImagen.setImageResource(idimagen);
+            idimagen1 = getResources().getIdentifier("imagen_" + cursor.getString(0)+"a", "drawable", getPackageName());
+            idimagen2 = getResources().getIdentifier("imagen_" + cursor.getString(0)+"b", "drawable", getPackageName());
+            idimagen3 = getResources().getIdentifier("imagen_" + cursor.getString(0)+"c", "drawable", getPackageName());
+
+            if (idimagen1 == 0) { //Si imagen no existe
+                idimagen1 = getResources().getIdentifier("imagen_" + 0, "drawable", getPackageName());
+                ivImagen1.setImageResource(idimagen1);
             } else {
-                ivImagen.setImageResource(idimagen);
+                ivImagen1.setImageResource(idimagen1);
             }
+
+            if (idimagen2 == 0) { //Si imagen no existe
+                idimagen2 = getResources().getIdentifier("imagen_" + 0, "drawable", getPackageName());
+                ivImagen2.setImageResource(idimagen2);
+            } else {
+                ivImagen2.setImageResource(idimagen2);
+            }
+
+            if (idimagen3 == 0) { //Si imagen no existe
+                idimagen3 = getResources().getIdentifier("imagen_" + 0, "drawable", getPackageName());
+                ivImagen3.setImageResource(idimagen3);
+            } else {
+                ivImagen3.setImageResource(idimagen3);
+            }
+
+
+            /*Picasso.get() //Cargar desde internet
+                    .load("https://i.pinimg.com/originals/c3/2e/fd/c32efd34d386c758da328d225265a91f.png") //Link de la imagen
+                    .placeholder(R.id.Laimagen) //La imagen que aparecera mientras se carga la imagen del link
+                    .error(R.id.Laimagen) //La imagen que aparecera en caso de error
+                    .into(ElImageView); //El ImageView que recibira la imagen*/
+
+
+
             tvNombreComun.setText(cursor.getString(1));
             tvNombreCientifico.setText(cursor.getString(2));
             tvFamilia.setText(cursor.getString(3));
@@ -95,7 +129,7 @@ public class ActivityDetalle extends AppCompatActivity {
     }
 
 
-    public void ImagenPopup(View view){
+    public void ImagenPopup(View view, ImageView laImagen){
         final ImagePopup imagePopup = new ImagePopup(this);
         imagePopup.setWindowHeight(800); // Optional
         imagePopup.setWindowWidth(800); // Optional
@@ -103,7 +137,7 @@ public class ActivityDetalle extends AppCompatActivity {
         imagePopup.setFullScreen(true); // Pantalla completa
         imagePopup.setHideCloseIcon(true);  // Ocultar Boton cerrar
         imagePopup.setImageOnClickClose(false);  //Cerrar al tocar imagen
-        imagePopup.initiatePopup(ivImagen.getDrawable()); // Cargar la imagen
+        imagePopup.initiatePopup(laImagen.getDrawable()); // Cargar la imagen
         imagePopup.viewPopup(); //Iniciar Popup
     }
 
