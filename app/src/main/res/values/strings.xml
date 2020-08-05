@@ -21,7 +21,7 @@
     <string name="logo_de_la_app">Logo de la app</string>
     <string name="tvCodigo">Codigo</string>
     <string name="tvDescripcion">Descripción</string>
-    <string name="tvCiclo">Ciclo:</string>
+    <string name="tvCiclo">Ciclo</string>
     <string name="tvEcologia">Ecología</string>
     <string name="tvDistribucion">Distribución</string>
     <string name="tvEspeciesSimi">Especies similares</string>
@@ -38,5 +38,8 @@
     <string name="buscarNombreComun">Nombre común</string>
     <string name="buscarNombreCien">Nombre científico</string>
     <string name="buscarFamilia">Familia</string>
+    <string name="tituloMenu1">Home</string>
+    <string name="tituloMenu2">Buscar maleza</string>
+    <string name="tituloMenu3">Boton 3</string>
 
 </resources>

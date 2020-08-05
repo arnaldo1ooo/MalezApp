@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/menu_home"
-        android:title="Home"
-        android:icon="@mipmap/ic_home" />
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@mipmap/ic_action_home"
+        android:title="@string/tituloMenu1" />
 
-    <item android:id="@+id/menu_buscarmaleza"
-        android:title="Buscar maleza"
-        android:icon="@mipmap/ic_maleza" />
+    <item
+        android:id="@+id/menu_buscarmaleza"
+        android:icon="@mipmap/ic_action_maleza"
+        android:title="@string/tituloMenu2" />
 
-    <item android:id="@+id/boton3"
-        android:title="boton3"
-        android:icon="@mipmap/ic_home" />
+    <item
+        android:id="@+id/boton3"
+        android:icon="@mipmap/ic_action_home"
+        android:title="@string/tituloMenu3" />
 </menu>

@@ -1,4 +1,4 @@
-package com.arnaldo.malezapp.rv_lista;
+package com.arnaldo.malezapp.lista;
 
 public class itemLista {
     private String codigo;

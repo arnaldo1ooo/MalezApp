@@ -27,6 +27,10 @@ public class ActivityPrincipal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
+        getSupportActionBar().setDisplayShowHomeEnabled(true); //Activar icono en actionbar
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher_round); //Asignar icono
+
+
 
         btnNaView = findViewById(R.id.btnNaView);
 

@@ -45,7 +45,7 @@
                     android:layout_width="88dp"
                     android:layout_height="82dp"
                     android:contentDescription="@string/buscarNombreComun"
-                    android:src="@mipmap/ic_buscarnombrecomun"
+                    android:src="@mipmap/ic_btn_nombrecomun"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -78,7 +78,7 @@
                     android:layout_width="88dp"
                     android:layout_height="82dp"
                     android:contentDescription="@string/buscarNombreCien"
-                    android:src="@mipmap/ic_buscarnombrecien"
+                    android:src="@mipmap/ic_btn_nombrecien"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -111,7 +111,7 @@
                     android:layout_width="88dp"
                     android:layout_height="82dp"
                     android:contentDescription="@string/buscarFamilia"
-                    android:src="@mipmap/ic_buscarfamilia"
+                    android:src="@mipmap/ic_btn_familia"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

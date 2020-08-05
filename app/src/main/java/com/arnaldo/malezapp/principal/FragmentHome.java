@@ -10,7 +10,7 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.arnaldo.malezapp.ActivityBuscador;
-import com.arnaldo.malezapp.ActivityLista;
+import com.arnaldo.malezapp.lista.ActivityLista;
 import com.arnaldo.malezapp.R;
 
 /**

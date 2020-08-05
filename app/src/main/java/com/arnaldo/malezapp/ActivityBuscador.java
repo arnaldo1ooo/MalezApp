@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.arnaldo.malezapp.lista.ActivityLista;
 import com.arnaldo.malezapp.metodos.Metodos;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -27,10 +28,9 @@ public class ActivityBuscador extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscador);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Activar boton atras
+        getSupportActionBar().setDisplayShowHomeEnabled(true); //Activar icono en actionbar
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher_round); //Asignar icono
 
-        //Activar icono en actionbar
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.mipmap.ic_launcher); //Asignar icono
 
         etBuscarNomCom = findViewById(R.id.etBuscarNomCom);
         etBuscarNomCien = findViewById(R.id.etBuscarNomCien);

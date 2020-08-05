@@ -1,4 +1,4 @@
-package com.arnaldo.malezapp;
+package com.arnaldo.malezapp.lista;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.arnaldo.malezapp.ActivityDetalle;
+import com.arnaldo.malezapp.R;
 import com.arnaldo.malezapp.conexion.Conexion;
-import com.arnaldo.malezapp.rv_lista.itemLista;
-import com.arnaldo.malezapp.rv_lista.rvLista;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -37,7 +37,7 @@ public class ActivityLista extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Boton atras
         getSupportActionBar().setDisplayShowHomeEnabled(true); //Activar icono en actionbar
-        getSupportActionBar().setIcon(R.mipmap.ic_launcher); //Asignar icono
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher_round); //Asignar icono
 
         tvTituloLista = findViewById(R.id.tvTituloLista);
 
