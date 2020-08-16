@@ -17,6 +17,13 @@
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintTop_toTopOf="parent">
 
+        <FrameLayout
+            android:id="@+id/flFragments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </FrameLayout>
+
         <TextView
             android:id="@+id/tvTituloLista"
             android:layout_width="match_parent"
@@ -29,7 +36,7 @@
             android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_principal"
+            android:id="@+id/rvPrincipal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="0dp" />
@@ -38,15 +45,13 @@
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView2"
-        android:layout_width="match_parent"
+        android:layout_width="413dp"
         android:layout_height="wrap_content"
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-8474453660271942/9184800934"
-        ads:layout_constraintTop_toTopOf="parent"
+        ads:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

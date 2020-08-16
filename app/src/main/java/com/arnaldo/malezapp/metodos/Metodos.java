@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.arnaldo.malezapp.R;
 import com.arnaldo.malezapp.conexion.Conexion;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 
 public class Metodos {
@@ -35,7 +36,7 @@ public class Metodos {
         elImageView.setImageBitmap(salidaBitMap);
     }
 
-    public ArrayAdapter PoblarSpinner(Context context, int spinner_formato, String sentenciaSQL) {
+    public ArrayAdapter PoblarSpinner(int numCol, Context context, int spinner_formato, String sentenciaSQL) {
         //Poblar spinner
         conexion = new Conexion(context);
         conexion.Abrir();
@@ -44,7 +45,7 @@ public class Metodos {
         ArrayList<String> listaArray = new ArrayList<>();
         listaArray.add("TODOS");
         while (cursor.moveToNext() == true) {
-            listaArray.add(new String(cursor.getString(1)));
+            listaArray.add(new String(cursor.getString(numCol)));
         }
 
         ArrayAdapter<String> adaptadorArray = new ArrayAdapter<String>(context, spinner_formato, listaArray); //spinner formato por defecto android.R.layout.simple_spinner_item
@@ -53,5 +54,11 @@ public class Metodos {
         conexion.Cerrar();
 
         return adaptadorArray;
+    }
+
+    public String SacarAcentos(String elTexto) {
+        elTexto = Normalizer.normalize(elTexto, Normalizer.Form.NFD);
+        elTexto = elTexto.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        return elTexto;
     }
 }

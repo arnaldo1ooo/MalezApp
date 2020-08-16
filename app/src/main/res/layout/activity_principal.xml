@@ -26,7 +26,7 @@
         app:elevation="8dp"
         app:itemHorizontalTranslationEnabled="false"
         app:itemIconSize="29dp"
-        app:itemIconTint="@drawable/menu_inferior_color"
+        app:itemIconTint="@drawable/btnnavview_color"
         app:itemTextColor="@color/ic_launcher_background"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/menu_inferior_items"></com.google.android.material.bottomnavigation.BottomNavigationView>

@@ -39,7 +39,7 @@ public class ActivityBuscador extends AppCompatActivity {
 
         Metodos metodos = new Metodos();
         //Poblar spinner
-        spFamilia.setAdapter(metodos.PoblarSpinner(this, R.layout.spinner_formato_item,
+        spFamilia.setAdapter(metodos.PoblarSpinner(1, this, R.layout.spinner_formato_item,
                 "SELECT fam_codigo, fam_descripcion FROM familia ORDER BY fam_descripcion"));
 
 

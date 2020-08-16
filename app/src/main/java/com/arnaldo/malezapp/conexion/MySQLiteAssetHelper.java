@@ -16,7 +16,7 @@ import java.io.OutputStream;
 
 public class MySQLiteAssetHelper extends com.readystatesoftware.sqliteasset.SQLiteAssetHelper {
     private static final String BD_NOMBRE = "malezapp.db";
-    private static final int BD_VERSION = 15; //Incrementar el numero para que vuelva a cargar la bd
+    private static final int BD_VERSION = 20; //Incrementar el numero para que vuelva a cargar la bd
     private final Context myContext;
     private static String DB_PATH = "";
 

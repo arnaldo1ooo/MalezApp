@@ -34,7 +34,7 @@ public class ActivityPrincipal extends AppCompatActivity {
 
         btnNaView = findViewById(R.id.btnNaView);
 
-        MostrarFragmentSeleccionado(new FragmentHome()); //Mostrar el fragmento home por defecto
+        MostrarFragmentSeleccionado(new FragmentPrincipalHome(), R.id.container); //Mostrar el fragmento home por defecto
 
         BarraInferior();
     }
@@ -45,19 +45,18 @@ public class ActivityPrincipal extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.menu_home:
-                        MostrarFragmentSeleccionado(new FragmentHome());
+                        MostrarFragmentSeleccionado(new FragmentPrincipalHome(), R.id.container);
                         break;
                     case R.id.menu_buscarmaleza:
-                        MostrarFragmentSeleccionado(new FragmentBuscarMaleza());
+                        MostrarFragmentSeleccionado(new FragmentPrincipalBuscarMaleza(), R.id.container);
                         break;
-                    case R.id.boton3:
-                        //showSelectedFragment(new FragmentHome());
+                    case R.id.menu_info:
+                        //MostrarFragmentSeleccionado(new FragmentBuscarMaleza(), R.id.container);
                         break;
                     default:
                         //JOptionPane.showMessageDialog(this, "No se selecciono ningun menu", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
                 }
-
                 return true;
             }
         });
@@ -80,8 +79,9 @@ public class ActivityPrincipal extends AppCompatActivity {
                 }).show();
     }
 
-    private void MostrarFragmentSeleccionado(Fragment fragment) {
-        this.getSupportFragmentManager().beginTransaction().replace(R.id.container,fragment)
+    private void MostrarFragmentSeleccionado(Fragment fragment, int elContenedor) {
+        this.getSupportFragmentManager().beginTransaction()
+                .replace(elContenedor,fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
     }

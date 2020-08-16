@@ -15,6 +15,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class ActivityDetalle extends AppCompatActivity {
@@ -23,6 +24,7 @@ public class ActivityDetalle extends AppCompatActivity {
     private ImageView ivImagen3;
     private TextView tvTituloMaleza;
     private TextView tvNombreComun2;
+    private TextView tvSinonimo2;
     private TextView tvNombreCientifico2;
     private TextView tvFamilia2;
     private TextView tvReconocidoPor2;
@@ -35,6 +37,7 @@ public class ActivityDetalle extends AppCompatActivity {
     private TextView tvResistencia;
     private TextView tvResistencia2;
     private AdView adView;
+    ArrayList<String> listaImagenes;
 
     private String codigoSeleccionado;
 
@@ -51,6 +54,7 @@ public class ActivityDetalle extends AppCompatActivity {
         ivImagen3 = findViewById(R.id.ivImagen3);
         tvTituloMaleza = findViewById(R.id.tvTituloMaleza);
         tvNombreComun2 = findViewById(R.id.tvNombreComun2);
+        tvSinonimo2 = findViewById(R.id.tvSinonimo2);
         tvNombreCientifico2 = findViewById(R.id.tvNombreCientifico2);
         tvFamilia2 = findViewById(R.id.tvFamilia2);
         tvReconocidoPor2 = findViewById(R.id.tvReconocidoPor2);
@@ -60,14 +64,14 @@ public class ActivityDetalle extends AppCompatActivity {
         tvDistribucion2 = findViewById(R.id.tvDistribucion2);
         tvEspeciesSimi2 = findViewById(R.id.tvEspeciesSimi2);
         tvTipoHoja2 = findViewById(R.id.tvTipoHoja2);
-        tvResistencia =findViewById(R.id.tvResistencia);
-        tvResistencia2 =findViewById(R.id.tvResistencia2);
+        tvResistencia = findViewById(R.id.tvResistencia);
+        tvResistencia2 = findViewById(R.id.tvResistencia2);
 
         codigoSeleccionado = getIntent().getExtras().getString("codigoSeleccionado"); //Codigo del registro seleccionado en la lista
 
         ObtenerDetalles();
 
-        if (tvResistencia2.getText().equals("-") == false){ //Poner rojo si tiene resistencia
+        if (tvResistencia2.getText().equals("-") == false) { //Poner rojo si tiene resistencia
             tvResistencia.setBackgroundColor(Color.parseColor("#910031"));
         }
 
@@ -77,45 +81,46 @@ public class ActivityDetalle extends AppCompatActivity {
         ivImagen1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImagenPopup(v, ivImagen1);
+                ImagenPopupPicasso(v,ivImagen1);
             }
         });
 
         ivImagen2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImagenPopup(v, ivImagen2);
+                ImagenPopupPicasso(v,ivImagen2);
             }
         });
 
         ivImagen3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImagenPopup(v, ivImagen3);
+                ImagenPopupPicasso(v,ivImagen3);
             }
         });
 
 
     }
 
+    int idimagen1;
+    int idimagen2;
+    int idimagen3;
+
     private void ObtenerDetalles() {
         Conexion conexion = new Conexion(this);
         conexion.Abrir();
-        Cursor cursor = conexion.EjecutarSQL("SELECT mal_codigo, mal_nombrecomun, mal_nombrecientifico, fam_descripcion, mal_reconocidapor, " +
-                "mal_descripcion, mal_ciclos, mal_ecologia, mal_distribucion, mal_especiessimilares, th_descripcion, mal_resistencia " +
-                "FROM maleza, familia, tipo_hoja " +
-                "WHERE mal_familia=fam_codigo AND mal_tipohoja = th_codigo AND mal_codigo=" + codigoSeleccionado);
+        Cursor cursor = conexion.EjecutarSQL("SELECT mal_codigo, mal_nombrecomun, mal_sinonimo, mal_nombrecientifico, fam_descripcion, " +
+                "mal_reconocidapor, mal_descripcion, mal_ciclos, mal_ecologia, GROUP_CONCAT(dep_descripcion, ', ') AS distribucion, " +
+                "mal_especiessimilares, th_descripcion, mal_resistencia " +
+                "FROM maleza, familia, tipo_hoja, departamento, maleza_departamento " +
+                "WHERE mal_familia=fam_codigo AND mal_tipohoja = th_codigo AND maldep_maleza = mal_codigo AND maldep_departamento = dep_codigo " +
+                "AND mal_codigo= " + codigoSeleccionado);
 
-        int idimagen1;
-        int idimagen2;
-        int idimagen3;
-        while (cursor.moveToNext()) {
-            idimagen1 = getResources().getIdentifier("imagen_" + cursor.getString(0)+"a", "drawable", getPackageName());
-            System.out.println(idimagen1);
-            idimagen2 = getResources().getIdentifier("imagen_" + cursor.getString(0)+"b", "drawable", getPackageName());
-            System.out.println(idimagen2);
-            idimagen3 = getResources().getIdentifier("imagen_" + cursor.getString(0)+"c", "drawable", getPackageName());
-            System.out.println(idimagen3);
+
+        if (cursor.moveToNext()) {
+            idimagen1 = getResources().getIdentifier("imagen_" + cursor.getString(0) + "a", "drawable", getPackageName());
+            idimagen2 = getResources().getIdentifier("imagen_" + cursor.getString(0) + "b", "drawable", getPackageName());
+            idimagen3 = getResources().getIdentifier("imagen_" + cursor.getString(0) + "c", "drawable", getPackageName());
 
             if (idimagen1 == 0) { //Si imagen no existe
                 idimagen1 = getResources().getIdentifier("imagen_" + 0, "drawable", getPackageName());
@@ -146,18 +151,18 @@ public class ActivityDetalle extends AppCompatActivity {
                     .into(ElImageView); //El ImageView que recibira la imagen*/
 
 
-
             tvNombreComun2.setText(cursor.getString(1));
-            tvNombreCientifico2.setText(cursor.getString(2));
-            tvFamilia2.setText(cursor.getString(3));
-            tvReconocidoPor2.setText(cursor.getString(4));
-            tvDescripcion2.setText(cursor.getString(5));
-            tvCiclo2.setText(cursor.getString(6));
-            tvEcologia2.setText(cursor.getString(7));
-            tvDistribucion2.setText(cursor.getString(8));
-            tvEspeciesSimi2.setText(cursor.getString(9));
-            tvTipoHoja2.setText(cursor.getString(10));
-            tvResistencia2.setText(cursor.getString(11));
+            tvSinonimo2.setText(cursor.getString(2));
+            tvNombreCientifico2.setText(cursor.getString(3));
+            tvFamilia2.setText(cursor.getString(4));
+            tvReconocidoPor2.setText(cursor.getString(5));
+            tvDescripcion2.setText(cursor.getString(6));
+            tvCiclo2.setText(cursor.getString(7));
+            tvEcologia2.setText(cursor.getString(8));
+            tvDistribucion2.setText(cursor.getString(9));
+            tvEspeciesSimi2.setText(cursor.getString(10));
+            tvTipoHoja2.setText(cursor.getString(11));
+            tvResistencia2.setText(cursor.getString(12));
 
             String elstring = tvNombreComun2.getText().toString();
             String separador = Pattern.quote(", "); //El caracter en dodne se cortara
@@ -169,7 +174,7 @@ public class ActivityDetalle extends AppCompatActivity {
     }
 
 
-    public void ImagenPopup(View view, ImageView laImagen){
+    public void ImagenPopupPicasso(View view, ImageView laImagen){
         final ImagePopup imagePopup = new ImagePopup(this);
         imagePopup.setWindowHeight(800); // Optional
         imagePopup.setWindowWidth(800); // Optional
@@ -220,5 +225,12 @@ public class ActivityDetalle extends AppCompatActivity {
                 // a la aplicación después de pulsar en un anuncio.
             }
         });
+    }
+
+    //Para que al oprimir en boton subir, retroceda al ultimo activity
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
     }
 }

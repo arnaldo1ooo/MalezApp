@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.arnaldo.malezapp">
 
-    //Permisos
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,37 +11,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ActivityBuscarFamilia" />
+        <activity android:name=".areaimageclick.ActivityBuscarDistribucion" />
         <activity
             android:name=".ActivitySplashScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
-                <action
-                    android:name="android.intent.action.MAIN" />
-                <category
-                    android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ActivityDetalle"
-            android:parentActivityName=".lista.ActivityLista">
-        </activity>
-
-        <activity
-            android:name=".principal.ActivityPrincipal">
-
-        </activity>
-
+            android:parentActivityName=".lista.ActivityLista" />
+        <activity android:name=".principal.ActivityPrincipal" />
         <activity
             android:name=".lista.ActivityLista"
             android:parentActivityName=".principal.ActivityPrincipal" />
-
         <activity
             android:name=".ActivityBuscador"
-            android:parentActivityName=".principal.ActivityPrincipal"/>
+            android:parentActivityName=".principal.ActivityPrincipal" />
 
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true" />
     </application>
+
 </manifest>

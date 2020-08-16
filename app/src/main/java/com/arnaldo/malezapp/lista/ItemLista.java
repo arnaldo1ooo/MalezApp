@@ -1,12 +1,12 @@
 package com.arnaldo.malezapp.lista;
 
-public class itemLista {
+public class ItemLista {
     private String codigo;
     private int imagen;
     private String nombrecomun;
     private String nombrecientifico;
 
-    public itemLista(String codigo, int imagen, String nombrecomun, String nombrecientifico){
+    public ItemLista(String codigo, int imagen, String nombrecomun, String nombrecientifico){
         this.codigo = codigo;
         this.imagen = imagen;
         this.nombrecomun = nombrecomun;
