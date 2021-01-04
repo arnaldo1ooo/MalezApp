@@ -2,11 +2,13 @@ package com.arnaldo.malezapp;
 
 import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.arnaldo.malezapp.conexion.Conexion;
@@ -14,6 +16,11 @@ import com.ceylonlabs.imageviewpopup.ImagePopup;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -117,8 +124,27 @@ public class ActivityDetalle extends AppCompatActivity {
                 "AND mal_codigo= " + codigoSeleccionado);
 
 
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+        storageReference.child("imagenes_malezas/imagen_1a.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri laUri) {
+                System.out.println("Suceso");
+                Picasso.get() //Cargar desde internet
+                        .load(laUri) //Link de la imagen
+                        .placeholder(R.drawable.cargando) //La imagen que aparecera mientras se carga la imagen del link
+                        .error(R.drawable.imagen_0) //La imagen que aparecera en caso de error
+                        .into(ivImagen1); //El ImageView que recibira la imagen
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                System.out.println("Fallo");
+            }
+        });
+
+
         if (cursor.moveToNext()) {
-            idimagen1 = getResources().getIdentifier("imagen_" + cursor.getString(0) + "a", "drawable", getPackageName());
+            /*idimagen1 = getResources().getIdentifier("imagen_" + cursor.getString(0) + "a", "drawable", getPackageName());
             idimagen2 = getResources().getIdentifier("imagen_" + cursor.getString(0) + "b", "drawable", getPackageName());
             idimagen3 = getResources().getIdentifier("imagen_" + cursor.getString(0) + "c", "drawable", getPackageName());
 
@@ -141,14 +167,14 @@ public class ActivityDetalle extends AppCompatActivity {
                 ivImagen3.setImageResource(idimagen3);
             } else {
                 ivImagen3.setImageResource(idimagen3);
-            }
+            }*/
 
 
             /*Picasso.get() //Cargar desde internet
-                    .load("https://i.pinimg.com/originals/c3/2e/fd/c32efd34d386c758da328d225265a91f.png") //Link de la imagen
-                    .placeholder(R.id.Laimagen) //La imagen que aparecera mientras se carga la imagen del link
-                    .error(R.id.Laimagen) //La imagen que aparecera en caso de error
-                    .into(ElImageView); //El ImageView que recibira la imagen*/
+                    .load("https://firebasestorage.googleapis.com/v0/b/malezapp-277df.appspot.com/o/imagen_1a.jpg?alt=media&token=70141de4-ea3d-48d5-8978-a808b231daab") //Link de la imagen
+                    .placeholder(R.drawable.imagen_0) //La imagen que aparecera mientras se carga la imagen del link
+                    .error(R.drawable.imagen_0) //La imagen que aparecera en caso de error
+                    .into(ivImagen1); //El ImageView que recibira la imagen*/
 
 
             tvNombreComun2.setText(cursor.getString(1));
