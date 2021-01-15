@@ -4,10 +4,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 public class Conexion {
     private android.database.sqlite.SQLiteOpenHelper openHelper;
-    private SQLiteDatabase db;
+    private SQLiteDatabase bd;
     private static Conexion instance;
 
     public Conexion(Context context) {
@@ -25,7 +26,7 @@ public class Conexion {
     //Para abrir la db
     public void Abrir() {
         try {
-            this.db = openHelper.getWritableDatabase();
+            this.bd = openHelper.getWritableDatabase();
         } catch (Exception e) {
             Log.d("Abrir bd", "Error al intentar abrir bd: " + e);
         }
@@ -33,27 +34,38 @@ public class Conexion {
 
     //Para cerrar la db
     public void Cerrar() {
-        if (db != null) {
-            this.db.close();
+        if (bd != null) {
+            this.bd.close();
         }
     }
 
     //Para obtener la version actual de la BD
     public String VersionBD() {
-        String version;
-        if (db != null) {
-            version = this.db.getVersion() + "";
-        } else {
-            this.db = openHelper.getWritableDatabase();
-            version = this.db.getVersion() + "";
+        String versionBd ="Error";
+        try {
+            if (bd != null) {
+                versionBd = this.bd.getVersion() + "";
+            } else {
+                this.bd = openHelper.getWritableDatabase();
+                versionBd = this.bd.getVersion() + "";
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            Toast.makeText(null, "Error al obtener VersionBD " + versionBd, Toast.LENGTH_LONG).show();
         }
-        return version;
+
+        return versionBd;
     }
 
     public Cursor EjecutarSQL(String sentencia) {
-        System.out.println("Sentencia a ejecutar: " + sentencia);
-        Cursor cursor = db.rawQuery(sentencia, new String[]{});
-
-        return cursor;
+        if (sentencia != null){
+            System.out.println("Sentencia a ejecutar: " + sentencia);
+            Cursor cursor = bd.rawQuery(sentencia, new String[]{});
+            return cursor;
+        }
+        else{
+            System.out.println("Sentencia vacia " + sentencia);
+            return null;
+        }
     }
 }

@@ -11,10 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityBuscarFamilia" />
-        <activity android:name=".areaimageclick.ActivityBuscarDistribucion" />
+        <activity android:name=".PoliticasActivity"></activity>
+        <activity android:name=".familia.BuscarFamiliaActivity" />
+        <activity android:name=".distribucion.areaimageclick.BuscarDistribucionActivity" />
         <activity
-            android:name=".ActivitySplashScreen"
+            android:name=".SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,15 +24,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActivityDetalle"
-            android:parentActivityName=".lista.ActivityLista" />
-        <activity android:name=".principal.ActivityPrincipal" />
+            android:name=".DetalleActivity"
+            android:parentActivityName=".lista.ListaActivity" />
+        <activity android:name=".principal.PrincipalActivity" />
         <activity
-            android:name=".lista.ActivityLista"
-            android:parentActivityName=".principal.ActivityPrincipal" />
+            android:name=".lista.ListaActivity"
+            android:parentActivityName=".principal.PrincipalActivity" />
         <activity
-            android:name=".ActivityBuscador"
-            android:parentActivityName=".principal.ActivityPrincipal" />
+            android:name=".BuscadorActivity"
+            android:parentActivityName=".principal.PrincipalActivity" />
+        <activity
+            android:name=".tipohoja.BuscarTipoHojaActivity"
+            android:parentActivityName=".principal.PrincipalActivity" />
 
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"

@@ -16,23 +16,23 @@ import java.io.OutputStream;
 
 public class MySQLiteAssetHelper extends com.readystatesoftware.sqliteasset.SQLiteAssetHelper {
     private static final String BD_NOMBRE = "malezapp.db";
-    private static final int BD_VERSION = 20; //Incrementar el numero para que vuelva a cargar la bd
-    private final Context myContext;
+    private static final int BD_VERSION = 25; //Incrementar el numero para que vuelva a cargar la bd
     private static String DB_PATH = "";
+    private final Context myContext;
 
     public MySQLiteAssetHelper(Context context) {
         super(context, BD_NOMBRE, null, BD_VERSION);
         DB_PATH = "/data/data/" + context.getPackageName() + "/databases/";
         this.myContext = context;
 
-        setForcedUpgrade(); //Metodo para forzar una sobrescritura de la base de datos cada vez que se incremente el número de versión
+        //setForcedUpgrade(); //Metodo para forzar una sobrescritura de la base de datos cada vez que se incremente el número de versión
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Toast.makeText(myContext, "La BD se actualizó a la versión: " + newVersion, Toast.LENGTH_LONG).show();
         Log.d("Actualizacion SQLite", "Direccion BD: " + db.getPath() + ", Version antigua: " + oldVersion + ", Version nueva: " + newVersion);
         myContext.deleteDatabase(BD_NOMBRE);
         CrearDB();
-        Toast.makeText(myContext, "La BD se actualizó a la versión: " + newVersion, Toast.LENGTH_SHORT).show();
     }
 
 

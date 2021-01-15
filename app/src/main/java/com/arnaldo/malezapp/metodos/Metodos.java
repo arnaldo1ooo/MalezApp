@@ -11,7 +11,6 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
-import com.arnaldo.malezapp.R;
 import com.arnaldo.malezapp.conexion.Conexion;
 
 import java.text.Normalizer;
@@ -20,8 +19,8 @@ import java.util.ArrayList;
 public class Metodos {
     Conexion conexion;
 
-    public void EfectoBlur(ImageView elImageView, float radio, Context elContext) { //el radio puede ser de 0f a 25f
-        Bitmap bitmap = BitmapFactory.decodeResource(elContext.getResources(), R.drawable.fondo_splash);
+    public void EfectoBlur(int direccionImagen, ImageView elImageView, float radio, Context elContext) { //el radio puede ser de 0f a 25f
+        Bitmap bitmap = BitmapFactory.decodeResource(elContext.getResources(), direccionImagen);
         Bitmap salidaBitMap = Bitmap.createBitmap(bitmap);
         final RenderScript renderScript = RenderScript.create(elContext);
         Allocation entradaTemp = Allocation.createFromBitmap(renderScript, bitmap);
