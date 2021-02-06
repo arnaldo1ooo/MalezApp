@@ -52,7 +52,7 @@ public class PrincipalHomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflar el layout para este Fragmento
-        vista = inflater.inflate(R.layout.principal_home_fragment, container, false);
+        vista = inflater.inflate(R.layout.principal_agroquimicos_fragment, container, false);
 
         btnPrincipal1 = vista.findViewById(R.id.btnPrincipal1);
 

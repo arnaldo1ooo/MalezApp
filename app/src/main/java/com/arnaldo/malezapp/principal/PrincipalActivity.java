@@ -46,9 +46,9 @@ public class PrincipalActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.menu_home:
+                    /*case R.id.menu_agroquimico:
                         MostrarFragmentSeleccionado(new PrincipalHomeFragment(), R.id.container);
-                        break;
+                        break;*/
                     case R.id.menu_buscarmaleza:
                         MostrarFragmentSeleccionado(new PrincipalBuscarMalezaFragment(), R.id.container);
                         break;

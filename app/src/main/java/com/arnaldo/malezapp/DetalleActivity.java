@@ -117,14 +117,14 @@ public class DetalleActivity extends AppCompatActivity {
                 "mal_reconocidapor, mal_descripcion, mal_ciclos, mal_ecologia, GROUP_CONCAT(dep_descripcion, ', ') AS distribucion, " +
                 "mal_especiessimilares, th_descripcion, mal_resistencia " +
                 "FROM maleza, familia, tipo_hoja, departamento, maleza_departamento " +
-                "WHERE mal_familia=fam_codigo AND mal_tipohoja = th_codigo AND maldep_maleza = mal_codigo AND maldep_departamento = dep_codigo " +
-                "AND mal_codigo= " + codigoSeleccionado);
+                "WHERE mal_familia=fam_codigo AND mal_tipohoja=th_codigo AND maldep_maleza=mal_codigo AND maldep_departamento=dep_codigo AND mal_codigo=" + codigoSeleccionado);
 
         int idmaleza = 0;
         if (cursor.moveToNext()) {
             idmaleza = cursor.getInt(0);
             //Obtener imagen1 desde internet
             String rutaImagen1 = "imagenes_malezas/imagen_" + idmaleza + "a.jpg";
+            System.out.println("rutaImagen1: " + rutaImagen1);
             storageReference.child(rutaImagen1).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri laUri) {
@@ -144,6 +144,7 @@ public class DetalleActivity extends AppCompatActivity {
 
             //Obtener imagen2
             String rutaImagen2 = "imagenes_malezas/imagen_" + idmaleza + "b.jpg";
+            System.out.println("rutaImagen2: " + rutaImagen2);
             storageReference.child(rutaImagen2).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri laUri) {
@@ -163,6 +164,7 @@ public class DetalleActivity extends AppCompatActivity {
 
             //Obtener imagen3
             String rutaImagen3 = "imagenes_malezas/imagen_" + idmaleza + "c.jpg";
+            System.out.println("rutaImagen3: " + rutaImagen3);
             storageReference.child(rutaImagen3).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri laUri) {

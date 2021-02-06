@@ -61,7 +61,7 @@ public class SplashScreenActivity extends Activity {
                     AbrirNextActivity();
                 }
             }
-        }, 4000);
+        }, 5000);
     }
 
     Boolean seAbrióNextActivity = false;
