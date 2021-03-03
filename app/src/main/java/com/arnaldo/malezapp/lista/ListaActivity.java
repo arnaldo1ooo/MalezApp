@@ -277,7 +277,7 @@ public class ListaActivity extends AppCompatActivity {
 
     //Creamos el menu del actionbar
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_lista, menu); //Cargamos el menu
+        getMenuInflater().inflate(R.menu.menu_lista_actionbar, menu); //Cargamos el menu
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -285,13 +285,13 @@ public class ListaActivity extends AppCompatActivity {
     //Items del menu del actionbar
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.buscador_menu: {
+            case R.id.menu_buscador: {
 
 
                 return true;
             }
 
-            case R.id.info_menu: {
+            case R.id.menu_info2: {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 Spanned elMensaje = Html.fromHtml("");
                 switch (activitySelect) {

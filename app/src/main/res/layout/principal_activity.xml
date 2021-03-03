@@ -25,11 +25,11 @@
         android:soundEffectsEnabled="true"
         app:elevation="8dp"
         app:itemHorizontalTranslationEnabled="false"
-        app:itemIconSize="29dp"
+        app:itemIconSize="25dp"
         app:itemIconTint="@drawable/btnnavview_color"
         app:itemTextColor="@color/ic_launcher_background"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/menu_principal_barrainferior"></com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:labelVisibilityMode="auto"
+        app:menu="@menu/menu_principal_inferiorbar"></com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -3,6 +3,7 @@ package com.arnaldo.malezapp.distribucion.areaimageclick;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.arnaldo.malezapp.R;
 import com.arnaldo.malezapp.conexion.Conexion;
 import com.arnaldo.malezapp.lista.ListaActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +33,7 @@ public class BuscarDistribucionActivity extends AppCompatActivity implements OnC
 
     private ImageView ivMapa;
     private ListView lvdpto;
+    private StorageReference storageReference = FirebaseStorage.getInstance().getReference(); //Abrir conexion con storage de firestore
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +51,7 @@ public class BuscarDistribucionActivity extends AppCompatActivity implements OnC
         CargarLista("SELECT dep_descripcion FROM departamento ORDER BY dep_descripcion", lvdpto);
         CrearImagenAreaClickable(ivMapa);
 
-
-        lvdpto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+              lvdpto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent intent = new Intent(v.getContext(), ListaActivity.class);
@@ -78,6 +84,7 @@ public class BuscarDistribucionActivity extends AppCompatActivity implements OnC
         conexion.Abrir();
         ArrayList<String> lista = new ArrayList<>();
         Cursor cursor = conexion.EjecutarSQL(consultaSQL);
+        laLista.removeAllViews();
         lista.add("TODOS");
         while (cursor.moveToNext() == true) {
             lista.add(cursor.getString(0));
@@ -127,10 +134,42 @@ public class BuscarDistribucionActivity extends AppCompatActivity implements OnC
     public void onClickableAreaTouched(Object item) {
         if (item instanceof ItemClickDptos) { //Compara
             String itemSelect = ((ItemClickDptos) item).getName();
-            Intent intent = new Intent(getApplicationContext(), ListaActivity.class);
+            switch (itemSelect){
+                case "ALTO PARANÁ":{
+                    CargarLista("SELECT dis_descripcion FROM distrito, departamento WHERE dis_departamento=dep_codigo ORDER BY dis_descripcion", lvdpto);
+
+                    //Obtener imagen1 desde internet
+                    String rutaImagen1 = "mapas/mapa_dpto_altoparana.png";
+                    System.out.println("rutaImagen1: " + rutaImagen1);
+                    storageReference.child(rutaImagen1).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri laUri) {
+                            System.out.println("Suceso " + rutaImagen1);
+                            Picasso.get() //Cargar desde internet
+                                    .load(laUri) //Link de la imagen
+                                    .placeholder(R.drawable.cargando) //La imagen que aparecera mientras se carga la imagen del link
+                                    .error(R.drawable.imagen_0) //La imagen que aparecera en caso de error
+                                    .into(ivMapa); //El ImageView que recibira la imagen
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            System.out.println("Fallo " + rutaImagen1);
+                        }
+                    });
+                    break;
+                }
+
+                default:{
+                    System.out.println("No se encontro Switch " + itemSelect);
+                    break;
+                }
+
+            }
+            /*Intent intent = new Intent(getApplicationContext(), ListaActivity.class);
             intent.putExtra("btnSeleccionado", "distribucion");
             intent.putExtra("dptoseleccionado", itemSelect);
-            startActivityForResult(intent, 0);
+            startActivityForResult(intent, 0);*/
             //Toast.makeText(this, metodos.SacarAcentos(itemSelect.toUpperCase()), Toast.LENGTH_SHORT).show();
         }
     }

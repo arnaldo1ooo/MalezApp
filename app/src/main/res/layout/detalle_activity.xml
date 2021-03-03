@@ -76,6 +76,20 @@
                 android:paddingBottom="10dp"
                 ads:srcCompat="@drawable/imagen_0" />
 
+            <ImageView
+                android:id="@+id/ivImagen4"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/Descripcion_iv_imagen"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                ads:srcCompat="@drawable/imagen_0" />
+
         </LinearLayout>
     </HorizontalScrollView>
 
@@ -86,9 +100,10 @@
         android:scrollbars="vertical"
         ads:layout_constraintBottom_toTopOf="@+id/adView1"
         ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintHorizontal_bias="1.0"
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
-        app:layout_constraintHorizontal_bias="0.428">
+        ads:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#D9F3F0"
     tools:context=".distribucion.areaimageclick.BuscarDistribucionActivity">
 
     <LinearLayout
@@ -41,18 +42,14 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <RelativeLayout
+                        <ImageView
+                            android:id="@+id/ivMapa"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:id="@+id/ivMapa"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:background="#FFFFCD"
-                                app:srcCompat="@drawable/mapa_py" />
-                        </RelativeLayout>
+                            android:layout_height="match_parent"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/Mapa"
+                            android:scaleType="centerInside"
+                            app:srcCompat="@drawable/mapa_pais_paraguay" />
 
                     </LinearLayout>
 
@@ -78,7 +75,6 @@
             </LinearLayout>
         </TabHost>
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

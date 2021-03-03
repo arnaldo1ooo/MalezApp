@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.arnaldo.malezapp.conexion.Conexion;
 import com.ceylonlabs.imageviewpopup.ImagePopup;
@@ -29,6 +30,7 @@ public class DetalleActivity extends AppCompatActivity {
     private ImageView ivImagen1;
     private ImageView ivImagen2;
     private ImageView ivImagen3;
+    private ImageView ivImagen4;
     private TextView tvTituloMaleza;
     private TextView tvNombreComun2;
     private TextView tvSinonimo2;
@@ -46,7 +48,7 @@ public class DetalleActivity extends AppCompatActivity {
     private AdView adView;
     ArrayList<String> listaImagenes;
 
-    private String codigoSeleccionado;
+    private String idSelectMaleza;
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference(); //Abrir conexion con storage de firestore
 
     @Override
@@ -60,6 +62,7 @@ public class DetalleActivity extends AppCompatActivity {
         ivImagen1 = findViewById(R.id.ivImagen1);
         ivImagen2 = findViewById(R.id.ivImagen2);
         ivImagen3 = findViewById(R.id.ivImagen3);
+        ivImagen4 = findViewById(R.id.ivImagen4);
         tvTituloMaleza = findViewById(R.id.tvTituloMaleza);
         tvNombreComun2 = findViewById(R.id.tvNombreComun2);
         tvSinonimo2 = findViewById(R.id.tvSinonimo2);
@@ -75,13 +78,8 @@ public class DetalleActivity extends AppCompatActivity {
         tvResistencia = findViewById(R.id.tvResistencia);
         tvResistencia2 = findViewById(R.id.tvResistencia2);
 
-        codigoSeleccionado = getIntent().getExtras().getString("codigoSeleccionado"); //Codigo del registro seleccionado en la lista
-
+        idSelectMaleza = getIntent().getExtras().getString("codigoSeleccionado"); //Codigo del registro seleccionado en la lista
         ObtenerDetalles();
-
-        if (tvResistencia2.getText().equals("-") == false) { //Poner rojo si tiene resistencia
-            tvResistencia.setBackgroundColor(Color.parseColor("#910031"));
-        }
 
         Banner();
 
@@ -113,95 +111,126 @@ public class DetalleActivity extends AppCompatActivity {
     private void ObtenerDetalles() {
         Conexion conexion = new Conexion(this);
         conexion.Abrir();
-        Cursor cursor = conexion.EjecutarSQL("SELECT mal_codigo, mal_nombrecomun, mal_sinonimo, mal_nombrecientifico, fam_descripcion, " +
-                "mal_reconocidapor, mal_descripcion, mal_ciclos, mal_ecologia, GROUP_CONCAT(dep_descripcion, ', ') AS distribucion, " +
-                "mal_especiessimilares, th_descripcion, mal_resistencia " +
-                "FROM maleza, familia, tipo_hoja, departamento, maleza_departamento " +
-                "WHERE mal_familia=fam_codigo AND mal_tipohoja=th_codigo AND maldep_maleza=mal_codigo AND maldep_departamento=dep_codigo AND mal_codigo=" + codigoSeleccionado);
+        try {
+            Cursor cursor = conexion.EjecutarSQL("SELECT mal_codigo, mal_nombrecomun, mal_sinonimo, mal_nombrecientifico, fam_descripcion, mal_reconocidapor, mal_descripcion, mal_ciclos, mal_ecologia, \n" +
+                    "(SELECT GROUP_CONCAT(dep_descripcion, ', ') FROM maleza_departamento, departamento WHERE maldep_maleza=" + idSelectMaleza + " AND maldep_departamento=dep_codigo) AS distribucion, mal_especiessimilares, th_descripcion, " +
+                    "(SELECT GROUP_CONCAT(pa_descripcion, ', ') FROM maleza_resistencia, principio_activo WHERE mare_maleza=" + idSelectMaleza + " AND mare_principioactivo=pa_codigo) AS resistencia \n" +
+                    "FROM maleza, familia, tipo_hoja \n" +
+                    "WHERE fam_codigo=mal_familia AND th_codigo=mal_tipohoja AND mal_codigo=" + idSelectMaleza);
 
-        int idmaleza = 0;
-        if (cursor.moveToNext()) {
-            idmaleza = cursor.getInt(0);
-            //Obtener imagen1 desde internet
-            String rutaImagen1 = "imagenes_malezas/imagen_" + idmaleza + "a.jpg";
-            System.out.println("rutaImagen1: " + rutaImagen1);
-            storageReference.child(rutaImagen1).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri laUri) {
-                    System.out.println("Suceso " + rutaImagen1);
-                    Picasso.get() //Cargar desde internet
-                            .load(laUri) //Link de la imagen
-                            .placeholder(R.drawable.cargando) //La imagen que aparecera mientras se carga la imagen del link
-                            .error(R.drawable.imagen_0) //La imagen que aparecera en caso de error
-                            .into(ivImagen1); //El ImageView que recibira la imagen
+            if (cursor.moveToNext()) {
+                ObtenerImagenes(cursor);
+                tvNombreComun2.setText(cursor.getString(1));
+                tvSinonimo2.setText(cursor.getString(2));
+                tvNombreCientifico2.setText(cursor.getString(3));
+                tvFamilia2.setText(cursor.getString(4));
+                tvReconocidoPor2.setText(cursor.getString(5));
+                tvDescripcion2.setText(cursor.getString(6));
+                tvCiclo2.setText(cursor.getString(7));
+                tvEcologia2.setText(cursor.getString(8));
+                tvDistribucion2.setText(cursor.getString(9));
+                tvEspeciesSimi2.setText(cursor.getString(10));
+                tvTipoHoja2.setText(cursor.getString(11));
+                tvResistencia2.setText(cursor.getString(12));
+                if (tvResistencia2.getText().equals("")){
+                    tvResistencia.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+                    tvResistencia2.setText("-");
+                }else{ //Si hay resistencia poner en rojo titulo
+                    tvResistencia.setBackgroundColor(Color.parseColor("#910031"));
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    System.out.println("Fallo " + rutaImagen1);
-                }
-            });
 
-            //Obtener imagen2
-            String rutaImagen2 = "imagenes_malezas/imagen_" + idmaleza + "b.jpg";
-            System.out.println("rutaImagen2: " + rutaImagen2);
-            storageReference.child(rutaImagen2).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri laUri) {
-                    System.out.println("Suceso " + rutaImagen2);
-                    Picasso.get() //Cargar desde internet
-                            .load(laUri) //Link de la imagen
-                            .placeholder(R.drawable.cargando) //La imagen que aparecera mientras se carga la imagen del link
-                            .error(R.drawable.imagen_0) //La imagen que aparecera en caso de error
-                            .into(ivImagen2); //El ImageView que recibira la imagen
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    System.out.println("Fallo " + rutaImagen2);
-                }
-            });
-
-            //Obtener imagen3
-            String rutaImagen3 = "imagenes_malezas/imagen_" + idmaleza + "c.jpg";
-            System.out.println("rutaImagen3: " + rutaImagen3);
-            storageReference.child(rutaImagen3).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri laUri) {
-                    System.out.println("Suceso " + rutaImagen3);
-                    Picasso.get() //Cargar desde internet
-                            .load(laUri) //Link de la imagen
-                            .placeholder(R.drawable.cargando) //La imagen que aparecera mientras se carga la imagen del link
-                            .error(R.drawable.imagen_0) //La imagen que aparecera en caso de error
-                            .into(ivImagen3); //El ImageView que recibira la imagen
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    System.out.println("Fallo " + rutaImagen3);
-                }
-            });
-
-            tvNombreComun2.setText(cursor.getString(1));
-            tvSinonimo2.setText(cursor.getString(2));
-            tvNombreCientifico2.setText(cursor.getString(3));
-            tvFamilia2.setText(cursor.getString(4));
-            tvReconocidoPor2.setText(cursor.getString(5));
-            tvDescripcion2.setText(cursor.getString(6));
-            tvCiclo2.setText(cursor.getString(7));
-            tvEcologia2.setText(cursor.getString(8));
-            tvDistribucion2.setText(cursor.getString(9));
-            tvEspeciesSimi2.setText(cursor.getString(10));
-            tvTipoHoja2.setText(cursor.getString(11));
-            tvResistencia2.setText(cursor.getString(12));
-
-            String elstring = tvNombreComun2.getText().toString();
-            String separador = Pattern.quote(", "); //El caracter en dodne se cortara
-            String[] stringsplit = elstring.split(separador);
-            tvTituloMaleza.setText(stringsplit[0]);
+                String elstring = tvNombreComun2.getText().toString();
+                String separador = Pattern.quote(", "); //El caracter en dodne se cortara
+                String[] stringsplit = elstring.split(separador);
+                tvTituloMaleza.setText(stringsplit[0]);
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
         }
-        cursor.close();
         conexion.Cerrar();
+    }
+
+    private void ObtenerImagenes(Cursor cursor) {
+        int idmaleza = cursor.getInt(0);
+        //Obtener imagen1 desde internet
+        String rutaImagen1 = "imagenes_malezas/imagen_" + idmaleza + "a.jpg";
+        System.out.println("rutaImagen1: " + rutaImagen1);
+        storageReference.child(rutaImagen1).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri laUri) {
+                System.out.println("Suceso " + rutaImagen1);
+                Picasso.get() //Cargar desde internet
+                        .load(laUri) //Link de la imagen
+                        .placeholder(R.drawable.cargando) //La imagen que aparecera mientras se carga la imagen del link
+                        .error(R.drawable.imagen_0) //La imagen que aparecera en caso de error
+                        .into(ivImagen1); //El ImageView que recibira la imagen
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                System.out.println("Fallo " + rutaImagen1);
+            }
+        });
+
+        //Obtener imagen2
+        String rutaImagen2 = "imagenes_malezas/imagen_" + idmaleza + "b.jpg";
+        System.out.println("rutaImagen2: " + rutaImagen2);
+        storageReference.child(rutaImagen2).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri laUri) {
+                System.out.println("Suceso " + rutaImagen2);
+                Picasso.get() //Cargar desde internet
+                        .load(laUri) //Link de la imagen
+                        .placeholder(R.drawable.cargando) //La imagen que aparecera mientras se carga la imagen del link
+                        .error(R.drawable.imagen_0) //La imagen que aparecera en caso de error
+                        .into(ivImagen2); //El ImageView que recibira la imagen
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                System.out.println("Fallo " + rutaImagen2);
+            }
+        });
+
+        //Obtener imagen3
+        String rutaImagen3 = "imagenes_malezas/imagen_" + idmaleza + "c.jpg";
+        System.out.println("rutaImagen3: " + rutaImagen3);
+        storageReference.child(rutaImagen3).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri laUri) {
+                System.out.println("Suceso " + rutaImagen3);
+                Picasso.get() //Cargar desde internet
+                        .load(laUri) //Link de la imagen
+                        .placeholder(R.drawable.cargando) //La imagen que aparecera mientras se carga la imagen del link
+                        .error(R.drawable.imagen_0) //La imagen que aparecera en caso de error
+                        .into(ivImagen3); //El ImageView que recibira la imagen
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                System.out.println("Fallo " + rutaImagen3);
+            }
+        });
+
+        //Obtener imagen4
+        String rutaImagen4 = "imagenes_malezas/imagen_" + idmaleza + "d.jpg";
+        System.out.println("rutaImagen4: " + rutaImagen4);
+        storageReference.child(rutaImagen4).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri laUri) {
+                System.out.println("Suceso " + rutaImagen4);
+                Picasso.get() //Cargar desde internet
+                        .load(laUri) //Link de la imagen
+                        .placeholder(R.drawable.cargando) //La imagen que aparecera mientras se carga la imagen del link
+                        .error(R.drawable.imagen_0) //La imagen que aparecera en caso de error
+                        .into(ivImagen4); //El ImageView que recibira la imagen
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                System.out.println("Fallo " + rutaImagen4);
+            }
+        });
     }
 
 

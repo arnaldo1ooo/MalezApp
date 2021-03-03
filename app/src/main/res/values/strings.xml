@@ -3,7 +3,7 @@
     <string name="buscar">Buscar</string>
     <string name="menu_info">Informacion</string>
     <string name="resultado">Especie: especie</string>
-    <string name="Descripcion_iv_imagen">Foto del árbol</string>
+    <string name="Descripcion_iv_imagen">Foto de la maleza</string>
     <string name="btn_principal1">Todas las malezas</string>
     <string name="btn_principal2">Búsqueda específica</string>
     <string name="tv_identificador">Identificador</string>
@@ -13,7 +13,8 @@
     <string name="tv_familia">Familia</string>
     <string name="tv_reconocidopor">Reconocido por</string>
     <string name="titulolista">Listado de malezas</string>
-    <string name="titulolista2">Seleccione como buscar</string>
+    <string name="titulolista2">Buscar maleza por</string>
+    <string name="titulolista3">Buscar herbicida por</string>
     <string name="titulobusqueda">Búsqueda de malezas</string>
     <string name="titulomaleza">Titulo de la maleza</string>
     <string name="foto_de_la_especie">Foto de la especie</string>
@@ -44,12 +45,14 @@
     <string name="fg_2">Fragmento Buscar maleza</string>
     <string name="buscarNombreComun">Nombre común</string>
     <string name="buscarTodos">Todas las malezas</string>
+    <string name="buscarTodosHerbicidas">Todos los herbicidas</string>
+    <string name="resistenciaHerbicida">Herbicidas resistentes</string>
     <string name="buscarNombreCien">Nombre científico</string>
     <string name="buscarFamilia">Familia</string>
     <string name="buscarTipoEspecie">Tipo de especie</string>
     <string name="buscarDistribución">Distribución</string>
     <string name="buscarCiclo">Ciclo de la planta</string>
-    <string name="tituloMenu1">Agroquimicos</string>
+    <string name="tituloMenu1">Herbicidas</string>
     <string name="tituloMenu2">Buscar maleza</string>
     <string name="tituloMenu3">Info</string>
     <string name="SeleccioneFamilia">Seleccione la familia</string>
@@ -57,6 +60,7 @@
     <string name="Politicas">Politicas de privacidad</string>
     <string name="NombreApp">MalezApp</string>
     <string name="Subtitulo">Malezas comunes del Paraguay</string>
+    <string name="Mapa">Mapa del Paraguay</string>
 
     <string name="PoliticasContenido">Arnaldo Cantero built the MalezApp app as a Free app. This SERVICE is provided by Arnaldo Cantero at no cost and is intended for use as is.\n\n
         This page is used to inform visitors regarding my policies with the collection, use, and disclosure of Personal Information if anyone decided to use my Service.\n\n

@@ -1,38 +1,35 @@
 package com.arnaldo.malezapp.principal;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
-import com.arnaldo.malezapp.BuscadorActivity;
 import com.arnaldo.malezapp.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PrincipalHomeFragment#newInstance} factory method to
+ * Use the {@link PrincipalHerbicidasFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PrincipalHomeFragment extends Fragment {
+public class PrincipalHerbicidasFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
     private String mParam2;
     private View vista;
-    private Button btnPrincipal1;
+    //private Button btnPrincipal1;
 
 
-    public PrincipalHomeFragment() {
+    public PrincipalHerbicidasFragment() {
         // Required empty public constructor
     }
 
-    public static PrincipalHomeFragment newInstance(String param1, String param2) {
-        PrincipalHomeFragment fragment = new PrincipalHomeFragment();
+    public static PrincipalHerbicidasFragment newInstance(String param1, String param2) {
+        PrincipalHerbicidasFragment fragment = new PrincipalHerbicidasFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -52,17 +49,17 @@ public class PrincipalHomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflar el layout para este Fragmento
-        vista = inflater.inflate(R.layout.principal_agroquimicos_fragment, container, false);
+        vista = inflater.inflate(R.layout.principal_herbicidas_fragment, container, false);
 
-        btnPrincipal1 = vista.findViewById(R.id.btnPrincipal1);
+        //btnPrincipal1 = vista.findViewById(R.id.btnPrincipal1);
 
-        btnPrincipal1.setOnClickListener(new View.OnClickListener() {
+        /*btnPrincipal1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), BuscadorActivity.class);
                 startActivityForResult(intent, 0);
             }
-        });
+        });*/
 
         return vista;
     }

@@ -1,4 +1,4 @@
-package com.arnaldo.malezapp.principal;
+    package com.arnaldo.malezapp.principal;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -46,13 +46,13 @@ public class PrincipalActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    /*case R.id.menu_agroquimico:
-                        MostrarFragmentSeleccionado(new PrincipalHomeFragment(), R.id.container);
-                        break;*/
+                    case R.id.menu_buscarherbicida:
+                        MostrarFragmentSeleccionado(new PrincipalHerbicidasFragment(), R.id.container);
+                        break;
                     case R.id.menu_buscarmaleza:
                         MostrarFragmentSeleccionado(new PrincipalBuscarMalezaFragment(), R.id.container);
                         break;
-                    case R.id.info_menu:
+                    case R.id.menu_info:
                         MostrarFragmentSeleccionado(new PrincipalInfoFragment(), R.id.container);
                         break;
                     default:
