@@ -9,4 +9,6 @@
     <color name="plateado">#D0D3D4</color>
     <color name="aqua">#76D7C4</color>
     <color name="transparente">#00000000</color>
+    <color name="colortitlesecondary">#B3B3B3</color>
+
 </resources>

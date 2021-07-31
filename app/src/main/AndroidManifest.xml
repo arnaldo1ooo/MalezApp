@@ -11,11 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".PoliticasActivity"></activity>
-        <activity android:name=".familia.BuscarFamiliaActivity" />
-        <activity android:name=".distribucion.areaimageclick.BuscarDistribucionActivity" />
+        <activity android:name=".ActivityBusquedaGuiada"></activity>
+        <activity android:name=".ActivityBusquedaAbierta" />
+        <activity android:name=".ActivityPoliticas" />
+        <activity android:name=".familia.ActivityBuscarFamilia" />
         <activity
-            android:name=".SplashScreenActivity"
+            android:name=".ActivitySplashScreen"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,18 +25,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetalleActivity"
-            android:parentActivityName=".lista.ListaActivity" />
-        <activity android:name=".principal.PrincipalActivity" />
+            android:name=".ActivityDetalle"
+            android:parentActivityName=".lista.ActivityLista" />
+        <activity android:name=".principal.ActivityPrincipal" />
         <activity
-            android:name=".lista.ListaActivity"
-            android:parentActivityName=".principal.PrincipalActivity" />
+            android:name=".lista.ActivityLista"
+            android:parentActivityName=".principal.ActivityPrincipal" />
         <activity
-            android:name=".BuscadorActivity"
-            android:parentActivityName=".principal.PrincipalActivity" />
-        <activity
-            android:name=".tipohoja.BuscarTipoHojaActivity"
-            android:parentActivityName=".principal.PrincipalActivity" />
+            android:name=".tipohoja.ActivityBuscarTipoHoja"
+            android:parentActivityName=".principal.ActivityPrincipal" />
 
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
