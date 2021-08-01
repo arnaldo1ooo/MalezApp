@@ -1,4 +1,4 @@
-package com.arnaldo.malezapp.utilidades.areaimageclick;
+package com.arnaldo.malezapp.helpers.areaimageclick;
 
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;

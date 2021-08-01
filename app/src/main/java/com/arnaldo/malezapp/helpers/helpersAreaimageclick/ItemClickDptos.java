@@ -1,4 +1,4 @@
-package com.arnaldo.malezapp.utilidades.areaimageclick;
+package com.arnaldo.malezapp.helpers.areaimageclick;
 
 /**
  * Created by Lukas on 10/24/2015.
