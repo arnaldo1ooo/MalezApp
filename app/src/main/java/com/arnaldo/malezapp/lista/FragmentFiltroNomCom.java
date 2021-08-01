@@ -12,7 +12,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.arnaldo.malezapp.R;
-import com.arnaldo.malezapp.utilidades.metodos.Metodos;
+import com.arnaldo.malezapp.helpers.HelpersString;
 
 import java.util.ArrayList;
 
@@ -29,6 +29,7 @@ public class FragmentFiltroNomCom extends Fragment {
     private EditText etBuscarNomCom;
     private View vistaFragment;
     private TextView tvTitulo;
+    private HelpersString helpersString = new HelpersString();
 
     public FragmentFiltroNomCom() {
         // Required empty public constructor
@@ -85,11 +86,10 @@ public class FragmentFiltroNomCom extends Fragment {
     }
 
     ArrayList<ItemLista> listaFiltrada = new ArrayList<>();
-    Metodos metodos = new Metodos();
     private void FiltrarRV(String elTexto) {
         listaFiltrada.clear();
         for (ItemLista itemlista : listRecibido) {
-            if (metodos.SacarAcentos(itemlista.getNombrecomun().toLowerCase()).contains(metodos.SacarAcentos(elTexto.toLowerCase()))) {
+            if (helpersString.SacarAcentos(itemlista.getNombrecomun().toLowerCase()).contains(helpersString.SacarAcentos(elTexto.toLowerCase()))) {
                 listaFiltrada.add(itemlista);
             }
         }

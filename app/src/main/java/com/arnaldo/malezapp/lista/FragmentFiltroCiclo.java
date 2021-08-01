@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.arnaldo.malezapp.R;
-import com.arnaldo.malezapp.utilidades.metodos.Metodos;
+import com.arnaldo.malezapp.helpers.HelpersSpinner;
 
 import java.util.ArrayList;
 
@@ -29,6 +29,7 @@ public class FragmentFiltroCiclo extends Fragment {
     private Spinner spCiclo;
     private ArrayList<ItemLista> listaFiltrada;
     private TextView tvTitulo;
+    private HelpersSpinner helpersSpinner = new HelpersSpinner();
 
     public FragmentFiltroCiclo() {
         // Required empty public constructor
@@ -64,8 +65,7 @@ public class FragmentFiltroCiclo extends Fragment {
         tvTitulo = getActivity().findViewById(R.id.tvTituloLista); //Si el componente es del activity, usar getActivity.
 
         //Poblar spinner
-        Metodos metodos = new Metodos();
-        spCiclo.setAdapter(metodos.PoblarSpinner(1, vistaFragment.getContext(), R.layout.spinner_formato_item,
+        spCiclo.setAdapter(helpersSpinner.PoblarSpinner(1, vistaFragment.getContext(), R.layout.spinner_formato_item,
                 "SELECT ci_codigo, ci_descripcion FROM ciclo ORDER BY ci_descripcion"));
 
         spCiclo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

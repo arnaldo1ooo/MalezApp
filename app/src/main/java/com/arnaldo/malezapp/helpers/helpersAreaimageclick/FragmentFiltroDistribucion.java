@@ -1,4 +1,4 @@
-package com.arnaldo.malezapp.helpers.areaimageclick;
+package com.arnaldo.malezapp.helpers.helpersAreaimageclick;
 
 import android.content.Intent;
 import android.database.Cursor;

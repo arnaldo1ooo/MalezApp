@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.arnaldo.malezapp.utilidades.areaimageclick.FragmentFiltroDistribucion;
+import com.arnaldo.malezapp.helpers.helpersAreaimageclick.FragmentFiltroDistribucion;
 
 public class ActivityBusquedaGuiada extends AppCompatActivity {
     private TextView tvTitulo, tvSubtitulo;
