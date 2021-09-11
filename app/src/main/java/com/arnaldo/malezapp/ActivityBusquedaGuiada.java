@@ -7,10 +7,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.arnaldo.malezapp.helpers.HelpersFragment;
 import com.arnaldo.malezapp.helpers.helpersAreaimageclick.FragmentFiltroDistribucion;
 
 public class ActivityBusquedaGuiada extends AppCompatActivity {
     private TextView tvTitulo, tvSubtitulo;
+    private HelpersFragment helpersFragment = new HelpersFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,16 +29,9 @@ public class ActivityBusquedaGuiada extends AppCompatActivity {
 
         tvTitulo.setText("Titulo");
         tvSubtitulo.setText(R.string.tvDistribucion);
-        MostrarFragmentSeleccionado(new FragmentFiltroDistribucion(), R.id.containerBusquedaGuiada); //Mostrar el fragmento por defecto
+        helpersFragment.MostrarFragmentSeleccionado(this.getSupportFragmentManager(), FragmentTransaction.TRANSIT_FRAGMENT_OPEN,
+                new FragmentFiltroDistribucion(), R.id.containerBusquedaGuiada); //Mostrar el fragmento por defecto
 
-    }
-
-    private void MostrarFragmentSeleccionado(Fragment elFragment, int elContenedor) {
-        this.getSupportFragmentManager().beginTransaction()
-                .addToBackStack(null) //Agrega a la pila para que el fragment anterior no se pierda
-                .replace(elContenedor, elFragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .commit();
     }
 
 

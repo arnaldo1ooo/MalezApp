@@ -15,10 +15,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.arnaldo.malezapp.ActivityPoliticas;
 import com.arnaldo.malezapp.R;
+import com.arnaldo.malezapp.helpers.HelpersFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class ActivityPrincipal extends AppCompatActivity {
     BottomNavigationView btnNaView;
+    private HelpersFragment helpersFragment = new HelpersFragment();
 
     @Override
     public void onBackPressed() {
@@ -35,7 +37,7 @@ public class ActivityPrincipal extends AppCompatActivity {
 
         btnNaView = findViewById(R.id.btnNaView);
 
-        MostrarFragmentSeleccionado(new FragmentPrincipalBusquedaMaleza(), R.id.container); //Mostrar el fragmento por defecto
+        helpersFragment.MostrarFragmentSeleccionado(getSupportFragmentManager(), FragmentTransaction.TRANSIT_FRAGMENT_OPEN, new FragmentPrincipalBusquedaMaleza(), R.id.container); //Mostrar el fragmento por defecto
         btnNaView.setSelectedItemId(R.id.menu_buscarmaleza); //Seleccionar el item del boton
         BarraInferior();
     }
@@ -47,13 +49,16 @@ public class ActivityPrincipal extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.menu_buscarherbicida:
-                        MostrarFragmentSeleccionado(new FragmentPrincipalBusquedaHerbicida(), R.id.container);
+                        helpersFragment.MostrarFragmentSeleccionado(getSupportFragmentManager(),
+                                FragmentTransaction.TRANSIT_FRAGMENT_OPEN, new FragmentPrincipalBusquedaHerbicida(), R.id.container);
                         break;
                     case R.id.menu_buscarmaleza:
-                        MostrarFragmentSeleccionado(new FragmentPrincipalBusquedaMaleza(), R.id.container);
+                        helpersFragment.MostrarFragmentSeleccionado(getSupportFragmentManager(),
+                                FragmentTransaction.TRANSIT_FRAGMENT_OPEN, new FragmentPrincipalBusquedaMaleza(), R.id.container);
                         break;
                     case R.id.menu_info:
-                        MostrarFragmentSeleccionado(new FragmentPrincipalInfo(), R.id.container);
+                        helpersFragment.MostrarFragmentSeleccionado(getSupportFragmentManager(),
+                                FragmentTransaction.TRANSIT_FRAGMENT_OPEN, new FragmentPrincipalInfo(), R.id.container);
                         break;
                     default:
                         //JOptionPane.showMessageDialog(this, "No se selecciono ningun menu", "Error", JOptionPane.ERROR_MESSAGE);
@@ -78,14 +83,6 @@ public class ActivityPrincipal extends AppCompatActivity {
                         //finish(); Si solo quiere mandar la aplicación a segundo plano
                     }
                 }).show();
-    }
-
-    private void MostrarFragmentSeleccionado(Fragment fragment, int elContenedor) {
-        this.getSupportFragmentManager().beginTransaction()
-                .replace(elContenedor, fragment)
-
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .commit();
     }
 
 
