@@ -19,7 +19,8 @@
         android:textSize="20sp"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"
-        ads:layout_constraintTop_toTopOf="parent" />
+        ads:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"

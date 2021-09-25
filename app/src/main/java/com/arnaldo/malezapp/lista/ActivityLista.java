@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.arnaldo.malezapp.ActivityDetalle;
 import com.arnaldo.malezapp.R;
 import com.arnaldo.malezapp.dao.DAO;
+import com.arnaldo.malezapp.helpers.HelpersFragment;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -39,6 +40,7 @@ public class ActivityLista extends AppCompatActivity {
     private Bundle elBundle;
     private ArrayList<ItemLista> listItems;
     private DAO DAO;
+    private HelpersFragment helpersFragment = new HelpersFragment();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +71,8 @@ public class ActivityLista extends AppCompatActivity {
 
                     FragmentFiltroNomCom fragmentFiltroNomCom = new FragmentFiltroNomCom();
                     fragmentFiltroNomCom.setArguments(elBundle);
-                    MostrarFragmentSeleccionado(fragmentFiltroNomCom, R.id.flFragments);
+                    helpersFragment.MostrarFragmentSeleccionado(this.getSupportFragmentManager(),
+                            FragmentTransaction.TRANSIT_FRAGMENT_FADE, fragmentFiltroNomCom, R.id.flFragments);
                     break;
                 }
                 case "nombrecientifico": {
@@ -78,7 +81,8 @@ public class ActivityLista extends AppCompatActivity {
 
                     FragmentFiltroNomCien fragmentFiltroNomCien = new FragmentFiltroNomCien();
                     fragmentFiltroNomCien.setArguments(elBundle);
-                    MostrarFragmentSeleccionado(fragmentFiltroNomCien, R.id.flFragments);
+                    helpersFragment.MostrarFragmentSeleccionado(this.getSupportFragmentManager(),
+                            FragmentTransaction.TRANSIT_FRAGMENT_FADE, fragmentFiltroNomCien, R.id.flFragments);
                     break;
                 }
                 case "ciclo": {
@@ -87,7 +91,8 @@ public class ActivityLista extends AppCompatActivity {
 
                     FragmentFiltroCiclo fragmentFiltroCiclo = new FragmentFiltroCiclo();
                     fragmentFiltroCiclo.setArguments(elBundle);
-                    MostrarFragmentSeleccionado(fragmentFiltroCiclo, R.id.flFragments);
+                    helpersFragment.MostrarFragmentSeleccionado(this.getSupportFragmentManager(),
+                            FragmentTransaction.TRANSIT_FRAGMENT_FADE, fragmentFiltroCiclo, R.id.flFragments);
                     break;
                 }
                 case "tipoespecie": {
@@ -96,13 +101,15 @@ public class ActivityLista extends AppCompatActivity {
 
                     FragmentFiltroTipoEspecie fragmentFiltroTipoEspecie = new FragmentFiltroTipoEspecie();
                     fragmentFiltroTipoEspecie.setArguments(elBundle);
-                    MostrarFragmentSeleccionado(fragmentFiltroTipoEspecie, R.id.flFragments);
+                    helpersFragment.MostrarFragmentSeleccionado(this.getSupportFragmentManager(),
+                            FragmentTransaction.TRANSIT_FRAGMENT_FADE, fragmentFiltroTipoEspecie, R.id.flFragments);
                     break;
                 }
                 case "familia": {
                     FragmentFiltroFamilia fragmentFiltroFamilia = new FragmentFiltroFamilia();
                     fragmentFiltroFamilia.setArguments(elBundle);
-                    MostrarFragmentSeleccionado(fragmentFiltroFamilia, R.id.flFragments);
+                    helpersFragment.MostrarFragmentSeleccionado(this.getSupportFragmentManager(),
+                            FragmentTransaction.TRANSIT_FRAGMENT_FADE, fragmentFiltroFamilia, R.id.flFragments);
 
                     familiaSeleccionado = getIntent().getExtras().getString("familiaseleccionado");
                     if (!familiaSeleccionado.equals("TODOS")) {
@@ -120,7 +127,8 @@ public class ActivityLista extends AppCompatActivity {
                     dptoSeleccionado = getIntent().getExtras().getString("dptoseleccionado"); //Obtenemos el dpto seleccionado
                     FragmentFiltroDistribucion2 fragmentFiltroDistribucion2 = new FragmentFiltroDistribucion2();
                     fragmentFiltroDistribucion2.setArguments(elBundle);
-                    MostrarFragmentSeleccionado(fragmentFiltroDistribucion2, R.id.flFragments);
+                    helpersFragment.MostrarFragmentSeleccionado(this.getSupportFragmentManager(),
+                            FragmentTransaction.TRANSIT_FRAGMENT_FADE, fragmentFiltroDistribucion2, R.id.flFragments);
 
                     if (!dptoSeleccionado.equals("TODOS")) {
                         listaFiltrada = (ConsultaBD("SELECT mal_codigo, mal_nombrecomun, mal_nombrecientifico " +
@@ -142,7 +150,8 @@ public class ActivityLista extends AppCompatActivity {
 
                     FragmentFiltroTipoHoja fragmentFiltroTipoHoja = new FragmentFiltroTipoHoja();
                     fragmentFiltroTipoHoja.setArguments(elBundle);
-                    MostrarFragmentSeleccionado(fragmentFiltroTipoHoja, R.id.flFragments);
+                    helpersFragment.MostrarFragmentSeleccionado(this.getSupportFragmentManager(),
+                            FragmentTransaction.TRANSIT_FRAGMENT_FADE, fragmentFiltroTipoHoja, R.id.flFragments);
 
                     listaFiltrada = (ConsultaBD(consultaSQL));
                     CargarConsultaaRV(listaFiltrada);
@@ -267,11 +276,6 @@ public class ActivityLista extends AppCompatActivity {
         });
     }
 
-    private void MostrarFragmentSeleccionado(Fragment fragment, int elContenedor) {
-        this.getSupportFragmentManager().beginTransaction().replace(elContenedor, fragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
-    }
 
 
     //Creamos el menu del actionbar
