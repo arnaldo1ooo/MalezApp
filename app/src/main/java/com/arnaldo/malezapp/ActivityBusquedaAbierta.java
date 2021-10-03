@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.arnaldo.malezapp.familia.ActivityBuscarFamilia;
 import com.arnaldo.malezapp.helpers.helpersAreaimageclick.FragmentFiltroDistribucion;
-import com.arnaldo.malezapp.lista.ActivityLista;
+import com.arnaldo.malezapp.lista.ActivityListaMalezas;
 
 public class ActivityBusquedaAbierta extends AppCompatActivity {
     private ImageView iv1, iv2, iv3, iv4, iv5, iv6, iv7, iv8;
@@ -48,7 +48,7 @@ public class ActivityBusquedaAbierta extends AppCompatActivity {
         iv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ActivityLista.class);
+                Intent intent = new Intent(v.getContext(), ActivityListaMalezas.class);
                 intent.putExtra("btnSeleccionado", "cultivo");
                 startActivityForResult(intent, 0);
             }
@@ -57,7 +57,7 @@ public class ActivityBusquedaAbierta extends AppCompatActivity {
         iv3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ActivityLista.class);
+                Intent intent = new Intent(v.getContext(), ActivityListaMalezas.class);
                 intent.putExtra("btnSeleccionado", "tipohoja");
                 startActivityForResult(intent, 0);
             }
@@ -75,7 +75,7 @@ public class ActivityBusquedaAbierta extends AppCompatActivity {
         iv5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ActivityLista.class);
+                Intent intent = new Intent(v.getContext(), ActivityListaMalezas.class);
                 intent.putExtra("btnSeleccionado", "ciclo");
                 startActivityForResult(intent, 0);
             }
@@ -84,7 +84,7 @@ public class ActivityBusquedaAbierta extends AppCompatActivity {
         iv6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ActivityLista.class);
+                Intent intent = new Intent(v.getContext(), ActivityListaMalezas.class);
                 intent.putExtra("btnSeleccionado", "tipoespecie");
                 startActivityForResult(intent, 0);
             }
@@ -93,7 +93,7 @@ public class ActivityBusquedaAbierta extends AppCompatActivity {
         iv7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ActivityLista.class);
+                Intent intent = new Intent(v.getContext(), ActivityListaMalezas.class);
                 intent.putExtra("btnSeleccionado", "nombrecomun");
                 startActivityForResult(intent, 0);
             }
@@ -102,7 +102,7 @@ public class ActivityBusquedaAbierta extends AppCompatActivity {
         iv8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ActivityLista.class);
+                Intent intent = new Intent(v.getContext(), ActivityListaMalezas.class);
                 intent.putExtra("btnSeleccionado", "nombrecientifico");
                 startActivityForResult(intent, 0);
             }

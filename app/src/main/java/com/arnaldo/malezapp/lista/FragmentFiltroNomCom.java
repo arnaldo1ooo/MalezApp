@@ -25,7 +25,7 @@ public class FragmentFiltroNomCom extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<ItemLista> listRecibido;
+    private ArrayList<ItemMaleza> listRecibido;
     private EditText etBuscarNomCom;
     private View vistaFragment;
     private TextView tvTitulo;
@@ -51,7 +51,7 @@ public class FragmentFiltroNomCom extends Fragment {
         if (getArguments() != null) { //Recibe argumentos si es distinto a vacio
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-            listRecibido = (ArrayList<ItemLista>) getArguments().getSerializable("lista");
+            listRecibido = (ArrayList<ItemMaleza>) getArguments().getSerializable("lista");
 
             getArguments().clear(); //Limpia los argumentos ya que ya se han guardado en las variables
         }
@@ -85,15 +85,15 @@ public class FragmentFiltroNomCom extends Fragment {
         return vistaFragment;
     }
 
-    ArrayList<ItemLista> listaFiltrada = new ArrayList<>();
+    ArrayList<ItemMaleza> listaFiltrada = new ArrayList<>();
     private void FiltrarRV(String elTexto) {
         listaFiltrada.clear();
-        for (ItemLista itemlista : listRecibido) {
+        for (ItemMaleza itemlista : listRecibido) {
             if (helpersString.SacarAcentos(itemlista.getNombrecomun().toLowerCase()).contains(helpersString.SacarAcentos(elTexto.toLowerCase()))) {
                 listaFiltrada.add(itemlista);
             }
         }
-        ((ActivityLista) getActivity()).CargarConsultaaRV(listaFiltrada);
+        ((ActivityListaMalezas) getActivity()).CargarConsultaaRV(listaFiltrada);
         tvTitulo.setText(listaFiltrada.size() + " Malezas encontradas");
     }
 }

@@ -16,13 +16,6 @@
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintTop_toTopOf="parent">
 
-        <SearchView
-            android:id="@+id/svBuscador"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:animationCache="true" />
-
         <FrameLayout
             android:id="@+id/flFragments"
             android:layout_width="match_parent"

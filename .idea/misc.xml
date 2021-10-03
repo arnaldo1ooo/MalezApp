@@ -8,11 +8,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/drawable-mdpi/btnnavview_color.xml" value="0.20364583333333333" />
+        <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/drawable/ic_info_50.xml" value="0.21770833333333334" />
         <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/layout/activity_buscar_familia.xml" value="0.27291666666666664" />
         <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/layout/activity_busqueda_guiada.xml" value="0.22" />
         <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/layout/activity_detalle.xml" value="0.35233160621761656" />
         <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/layout/activity_lista.xml" value="0.36666666666666664" />
+        <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/layout/activity_lista_malezas.xml" value="0.25" />
         <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/layout/activity_splashscreen.xml" value="0.27291666666666664" />
+        <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/layout/adaptador_buscar_familia.xml" value="0.1078125" />
+        <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/layout/adaptador_lista.xml" value="0.2015625" />
+        <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/layout/adaptador_lista_maleza.xml" value="0.2015625" />
+        <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/layout/fragment_principal_busquedaherbicida.xml" value="0.1078125" />
+        <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/layout/fragment_principal_busquedamaleza.xml" value="0.1078125" />
+        <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/layout/spinner_formato_item.xml" value="0.1078125" />
+        <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/menu/menu_busqueda.xml" value="0.21" />
+        <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/menu/menu_lista_actionbar.xml" value="0.2015625" />
+        <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/menu/menu_lista_malezas_actionbar.xml" value="0.27291666666666664" />
+        <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/menu/menu_principal.xml" value="0.2015625" />
+        <entry key="..\:/Proyectos/Repositorios_Git/MalezApp/app/src/main/res/menu/menu_principal_inferiorbar.xml" value="0.2015625" />
         <entry key="..\:/Users/Arnaldo_Cantero/Documents/AndroidStudioProjects/MalezApp/app/src/main/res/layout/activity_detalle.xml" value="0.33" />
       </map>
     </option>

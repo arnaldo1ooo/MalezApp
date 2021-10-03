@@ -59,7 +59,7 @@ public class FragmentFiltroDistribucion2 extends Fragment {
         vistaFragment = inflater.inflate(R.layout.fragment_filtro_distribucion2, container, false);
         tvTituloDpto = vistaFragment.findViewById(R.id.tvTituloDpto);
 
-        String dptoSeleccionado = ((ActivityLista) getActivity()).dptoSeleccionado;
+        String dptoSeleccionado = ((ActivityListaMalezas) getActivity()).dptoSeleccionado;
         tvTituloDpto.setText(dptoSeleccionado);
 
         return vistaFragment;

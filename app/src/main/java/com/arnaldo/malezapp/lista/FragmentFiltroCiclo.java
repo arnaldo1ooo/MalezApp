@@ -27,7 +27,7 @@ public class FragmentFiltroCiclo extends Fragment {
     private String mParam2;
     private View vistaFragment;
     private Spinner spCiclo;
-    private ArrayList<ItemLista> listaFiltrada;
+    private ArrayList<ItemMaleza> listaFiltrada;
     private TextView tvTitulo;
     private HelpersSpinner helpersSpinner = new HelpersSpinner();
 
@@ -71,13 +71,13 @@ public class FragmentFiltroCiclo extends Fragment {
         spCiclo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> spn, android.view.View v, int posicion, long id) {
                 if (spCiclo.getSelectedItem().equals("TODOS") == false) {
-                    listaFiltrada = ((ActivityLista) getActivity()).ConsultaBD("SELECT mal_codigo, mal_nombrecomun, mal_nombrecientifico " +
+                    listaFiltrada = ((ActivityListaMalezas) getActivity()).ConsultaBD("SELECT mal_codigo, mal_nombrecomun, mal_nombrecientifico " +
                             "FROM maleza,ciclo WHERE mal_ciclo = ci_codigo AND ci_descripcion = '" + spCiclo.getSelectedItem() + "' ORDER BY mal_nombrecomun");
                 } else {
-                    listaFiltrada = ((ActivityLista) getActivity()).ConsultaBD("SELECT mal_codigo, mal_nombrecomun, mal_nombrecientifico " +
+                    listaFiltrada = ((ActivityListaMalezas) getActivity()).ConsultaBD("SELECT mal_codigo, mal_nombrecomun, mal_nombrecientifico " +
                             "FROM maleza ORDER BY mal_nombrecomun");
                 }
-                ((ActivityLista) getActivity()).CargarConsultaaRV(listaFiltrada);
+                ((ActivityListaMalezas) getActivity()).CargarConsultaaRV(listaFiltrada);
                 tvTitulo.setText(listaFiltrada.size() + " Malezas encontradas");
             }
 

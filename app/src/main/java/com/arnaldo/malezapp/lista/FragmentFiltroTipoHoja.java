@@ -48,7 +48,7 @@ public class FragmentFiltroTipoHoja extends Fragment {
         vistaFragment = inflater.inflate(R.layout.fragment_filtro_distribucion2, container, false);
         tvTituloDpto = vistaFragment.findViewById(R.id.tvTituloDpto);
 
-        String tipohojaSelect = ((ActivityLista) getActivity()).tipoHojaSelect;
+        String tipohojaSelect = ((ActivityListaMalezas) getActivity()).tipoHojaSelect;
         tvTituloDpto.setText(tipohojaSelect);
 
         return vistaFragment;

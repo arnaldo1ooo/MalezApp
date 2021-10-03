@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.arnaldo.malezapp.R;
 import com.arnaldo.malezapp.dao.DAO;
-import com.arnaldo.malezapp.lista.ActivityLista;
+import com.arnaldo.malezapp.lista.ActivityListaMalezas;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -60,7 +60,7 @@ public class ActivityBuscarTipoHoja extends AppCompatActivity {
                 //Guardo el codigo del registro seleccionado
                 String idTipoHojaSelect = laLista.get(rvPrincipal.getChildAdapterPosition(view)).getIdtipohoja();
                 String tipoHojaSelect = laLista.get(rvPrincipal.getChildAdapterPosition(view)).getTituloTipoHoja();
-                Intent intent = new Intent(ActivityBuscarTipoHoja.this, ActivityLista.class);
+                Intent intent = new Intent(ActivityBuscarTipoHoja.this, ActivityListaMalezas.class);
                 intent.putExtra("btnSeleccionado", "tipohoja");
                 intent.putExtra("tipoHojaSelect", tipoHojaSelect);
                 intent.putExtra("consultaSQL", "SELECT mal_codigo, mal_nombrecomun, mal_nombrecientifico FROM maleza WHERE mal_tipohoja = '" + idTipoHojaSelect + "' ORDER BY mal_nombrecomun");

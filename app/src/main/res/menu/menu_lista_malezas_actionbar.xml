@@ -2,13 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_buscador"
+        android:id="@+id/menu_item_buscador"
         android:icon="@drawable/ic_search_50"
         android:title="@string/buscar"
-        app:showAsAction="always"/>
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="ifRoom|collapseActionView"/>
 
     <item
-        android:id="@+id/menu_info2"
+        android:id="@+id/menu_item_info2"
         android:icon="@drawable/ic_info_50"
         android:title="@string/menu_info"
         app:showAsAction="always" />

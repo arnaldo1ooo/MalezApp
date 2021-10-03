@@ -22,8 +22,8 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class FragmentFiltroNomCien extends Fragment {
-    private ArrayList<ItemLista> listRecibido;
-    private ArrayList<ItemLista> listaFiltrada = new ArrayList<>();
+    private ArrayList<ItemMaleza> listRecibido;
+    private ArrayList<ItemMaleza> listaFiltrada = new ArrayList<>();
     private EditText etBuscarNomCien;
     private View vistaFragment;
     private TextView tvTitulo;
@@ -43,7 +43,7 @@ public class FragmentFiltroNomCien extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            listRecibido = (ArrayList<ItemLista>) getArguments().getSerializable("lista"); //Recibe la lista total de malezas
+            listRecibido = (ArrayList<ItemMaleza>) getArguments().getSerializable("lista"); //Recibe la lista total de malezas
             getArguments().clear(); //Limpia los argumentos ya que ya se han guardado en las variables
             System.out.println("Se recibio paquete");
         }
@@ -80,7 +80,7 @@ public class FragmentFiltroNomCien extends Fragment {
         listaFiltrada.clear();
         String nomcien;
         if (listRecibido != null) {
-            for (ItemLista listaItem : listRecibido) {
+            for (ItemMaleza listaItem : listRecibido) {
                 nomcien = listaItem.getNombrecientifico().toLowerCase();
                 nomcien = helpersString.SacarAcentos(nomcien);
                 elTexto = elTexto.toLowerCase();
@@ -89,7 +89,7 @@ public class FragmentFiltroNomCien extends Fragment {
                     listaFiltrada.add(listaItem);
                 }
             }
-            ((ActivityLista) getActivity()).CargarConsultaaRV(listaFiltrada);
+            ((ActivityListaMalezas) getActivity()).CargarConsultaaRV(listaFiltrada);
             tvTitulo.setText(listaFiltrada.size() + " Malezas encontradas");
         } else {
             System.out.println("listRecibido es null");

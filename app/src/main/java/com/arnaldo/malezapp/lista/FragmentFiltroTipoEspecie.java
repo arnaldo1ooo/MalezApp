@@ -27,7 +27,7 @@ public class FragmentFiltroTipoEspecie extends Fragment {
     private String mParam2;
     private View vistaFragment;
     private Spinner spTipoEspecie;
-    private ArrayList<ItemLista> listaFiltrada;
+    private ArrayList<ItemMaleza> listaFiltrada;
     private TextView tvTitulo;
     private HelpersSpinner helpersSpinner = new HelpersSpinner();
 
@@ -71,13 +71,13 @@ public class FragmentFiltroTipoEspecie extends Fragment {
         spTipoEspecie.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> spn, android.view.View v, int posicion, long id) {
                 if (spTipoEspecie.getSelectedItem().equals("TODOS") == false) {
-                    listaFiltrada = ((ActivityLista) getActivity()).ConsultaBD("SELECT mal_codigo, mal_nombrecomun, mal_nombrecientifico " +
+                    listaFiltrada = ((ActivityListaMalezas) getActivity()).ConsultaBD("SELECT mal_codigo, mal_nombrecomun, mal_nombrecientifico " +
                             "FROM maleza, tipo_especie WHERE mal_tipoespecie = te_codigo AND te_descripcion = '" + spTipoEspecie.getSelectedItem() + "' ORDER BY mal_nombrecomun");
                 } else {
-                    listaFiltrada = ((ActivityLista) getActivity()).ConsultaBD("SELECT mal_codigo, mal_nombrecomun, mal_nombrecientifico " +
+                    listaFiltrada = ((ActivityListaMalezas) getActivity()).ConsultaBD("SELECT mal_codigo, mal_nombrecomun, mal_nombrecientifico " +
                             "FROM maleza ORDER BY mal_nombrecomun");
                 }
-                ((ActivityLista) getActivity()).CargarConsultaaRV(listaFiltrada);
+                ((ActivityListaMalezas) getActivity()).CargarConsultaaRV(listaFiltrada);
                 tvTitulo.setText(listaFiltrada.size() + " Malezas encontradas");
             }
 

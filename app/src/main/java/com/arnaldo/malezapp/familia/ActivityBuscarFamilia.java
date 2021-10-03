@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.arnaldo.malezapp.R;
-import com.arnaldo.malezapp.lista.ActivityLista;
+import com.arnaldo.malezapp.lista.ActivityListaMalezas;
 
 import java.util.ArrayList;
 
@@ -79,7 +79,7 @@ public class ActivityBuscarFamilia extends AppCompatActivity {
                 //Guardo el codigo del registro seleccionado
                 String familiaSelect = listaRVG.get(rvRVG.getChildAdapterPosition(v)).getNombre();
                 familiaSelect = familiaSelect.toUpperCase();
-                Intent intent = new Intent(v.getContext(), ActivityLista.class);
+                Intent intent = new Intent(v.getContext(), ActivityListaMalezas.class);
                 intent.putExtra("btnSeleccionado","familia");
                 intent.putExtra("familiaseleccionado",familiaSelect);
                 startActivityForResult(intent, 0);

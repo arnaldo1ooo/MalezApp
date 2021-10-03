@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.arnaldo.malezapp.ActivityBusquedaAbierta;
 import com.arnaldo.malezapp.ActivityBusquedaGuiada;
 import com.arnaldo.malezapp.R;
-import com.arnaldo.malezapp.lista.ActivityLista;
+import com.arnaldo.malezapp.lista.ActivityListaMalezas;
 
 public class FragmentPrincipalBusquedaMaleza extends Fragment {
     private ImageView iv1,iv2,iv3;
@@ -80,7 +80,7 @@ public class FragmentPrincipalBusquedaMaleza extends Fragment {
         iv3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ActivityLista.class);
+                Intent intent = new Intent(v.getContext(), ActivityListaMalezas.class);
                 intent.putExtra("btnSeleccionado","allmalezas");
                 startActivityForResult(intent, 0);
             }

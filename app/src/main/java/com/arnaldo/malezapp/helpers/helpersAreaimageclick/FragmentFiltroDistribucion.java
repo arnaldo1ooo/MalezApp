@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.arnaldo.malezapp.R;
 import com.arnaldo.malezapp.dao.DAO;
-import com.arnaldo.malezapp.lista.ActivityLista;
+import com.arnaldo.malezapp.lista.ActivityListaMalezas;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -94,7 +94,7 @@ public class FragmentFiltroDistribucion extends Fragment implements OnClickableA
         lvdpto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Intent intent = new Intent(v.getContext(), ActivityLista.class);
+                Intent intent = new Intent(v.getContext(), ActivityListaMalezas.class);
                 intent.putExtra("btnSeleccionado", "distribucion");
                 intent.putExtra("dptoseleccionado", lvdpto.getItemAtPosition(position).toString());
                 startActivityForResult(intent, 0);

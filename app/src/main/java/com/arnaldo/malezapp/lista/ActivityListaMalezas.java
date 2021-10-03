@@ -9,13 +9,13 @@ import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,7 +32,7 @@ import com.google.android.gms.ads.AdView;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-public class ActivityLista extends AppCompatActivity implements SearchView.OnQueryTextListener{
+public class ActivityListaMalezas extends AppCompatActivity{
     private RecyclerView rvPrincipal;
     private TextView tvTituloLista;
     private String activitySelect = "allmalezas";
@@ -43,12 +43,11 @@ public class ActivityLista extends AppCompatActivity implements SearchView.OnQue
     private ArrayList<ItemMaleza> listItems;
     private DAO DAO;
     private HelpersFragment helpersFragment = new HelpersFragment();
-    private SearchView svBuscador;
     private AdapterMalezas adapterMalezas;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista);
+        setContentView(R.layout.activity_lista_malezas);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); //Boton atras
         getSupportActionBar().setDisplayShowHomeEnabled(true); //Activar icono en actionbar
@@ -56,9 +55,6 @@ public class ActivityLista extends AppCompatActivity implements SearchView.OnQue
 
         rvPrincipal = findViewById(R.id.rvPrincipal);
         tvTituloLista = findViewById(R.id.tvTituloLista);
-        svBuscador = findViewById(R.id.svBuscador);
-
-
 
 
         try { //Recibe el boton seleccionado
@@ -176,9 +172,6 @@ public class ActivityLista extends AppCompatActivity implements SearchView.OnQue
             e.getStackTrace();
         }
 
-        // Buscador
-        svBuscador.setOnQueryTextListener(this);
-
         Banner();
     }
 
@@ -204,7 +197,7 @@ public class ActivityLista extends AppCompatActivity implements SearchView.OnQue
                 //Guardo el codigo del registro seleccionado
                 String codSelect = laLista.get(rvPrincipal.getChildAdapterPosition(view)).getCodigo();
 
-                Intent intent = new Intent(ActivityLista.this, ActivityDetalle.class);
+                Intent intent = new Intent(ActivityListaMalezas.this, ActivityDetalle.class);
                 intent.putExtra("codigoSeleccionado", codSelect);
                 startActivity(intent);
             }
@@ -293,18 +286,38 @@ public class ActivityLista extends AppCompatActivity implements SearchView.OnQue
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_lista_malezas_actionbar, menu); //Cargamos el menu
 
+        // Buscador
+        MenuItem menuItem = menu.findItem(R.id.menu_item_buscador);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setQueryHint("Escriba el nombre");
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapterMalezas.filtrado(newText);
+                tvTituloLista.setText(rvPrincipal.getAdapter().getItemCount() + " malezas encontradas");
+
+                return false;
+            }
+        });
+
         return super.onCreateOptionsMenu(menu);
     }
 
     //Items del menu del actionbar
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_buscador: {
+            case R.id.menu_item_buscador: {
 
                 return true;
             }
 
-            case R.id.menu_info2: {
+            case R.id.menu_item_info2: {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 Spanned elMensaje = Html.fromHtml("");
                 switch (activitySelect) {
@@ -421,20 +434,5 @@ public class ActivityLista extends AppCompatActivity implements SearchView.OnQue
                 return super.onOptionsItemSelected(item);
             }
         }
-    }
-
-    // Buscador
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        adapterMalezas.filtrado(newText);
-        tvTituloLista.setText(rvPrincipal.getAdapter().getItemCount() + " malezas encontradas");
-
-        return false;
     }
 }

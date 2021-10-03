@@ -56,7 +56,7 @@ public class FragmentFiltroFamilia extends Fragment {
 
         tvTituloFamilia = vistaFragment.findViewById(R.id.tvTituloTipoHoja);
 
-        String familiaSelect = ((ActivityLista) getActivity()).familiaSeleccionado;
+        String familiaSelect = ((ActivityListaMalezas) getActivity()).familiaSeleccionado;
         tvTituloFamilia.setText("FAMILIA " + familiaSelect);
 
         return vistaFragment;

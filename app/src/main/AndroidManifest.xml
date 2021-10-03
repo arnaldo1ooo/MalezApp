@@ -26,10 +26,10 @@
         </activity>
         <activity
             android:name=".ActivityDetalle"
-            android:parentActivityName=".lista.ActivityLista" />
+            android:parentActivityName=".lista.ActivityListaMalezas" />
         <activity android:name=".principal.ActivityPrincipal" />
         <activity
-            android:name=".lista.ActivityLista"
+            android:name=".lista.ActivityListaMalezas"
             android:parentActivityName=".principal.ActivityPrincipal" />
         <activity
             android:name=".tipohoja.ActivityBuscarTipoHoja"
