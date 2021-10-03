@@ -2,18 +2,20 @@ package com.arnaldo.malezapp.lista;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,7 +32,7 @@ import com.google.android.gms.ads.AdView;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-public class ActivityLista extends AppCompatActivity {
+public class ActivityLista extends AppCompatActivity implements SearchView.OnQueryTextListener{
     private RecyclerView rvPrincipal;
     private TextView tvTituloLista;
     private String activitySelect = "allmalezas";
@@ -38,9 +40,11 @@ public class ActivityLista extends AppCompatActivity {
     public String dptoSeleccionado = "";
     public String familiaSeleccionado = "";
     private Bundle elBundle;
-    private ArrayList<ItemLista> listItems;
+    private ArrayList<ItemMaleza> listItems;
     private DAO DAO;
     private HelpersFragment helpersFragment = new HelpersFragment();
+    private SearchView svBuscador;
+    private AdapterMalezas adapterMalezas;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +56,15 @@ public class ActivityLista extends AppCompatActivity {
 
         rvPrincipal = findViewById(R.id.rvPrincipal);
         tvTituloLista = findViewById(R.id.tvTituloLista);
+        svBuscador = findViewById(R.id.svBuscador);
+
+
+
 
         try { //Recibe el boton seleccionado
             activitySelect = getIntent().getExtras().getString("btnSeleccionado");
 
-            ArrayList<ItemLista> listaFiltrada;
+            ArrayList<ItemMaleza> listaFiltrada;
             switch (activitySelect) {
                 case "allmalezas":{
                     String consultaSQL = "SELECT mal_codigo, mal_nombrecomun, mal_nombrecientifico FROM maleza, familia WHERE mal_familia=fam_codigo ORDER BY mal_nombrecomun"; //Por defecto
@@ -168,10 +176,13 @@ public class ActivityLista extends AppCompatActivity {
             e.getStackTrace();
         }
 
+        // Buscador
+        svBuscador.setOnQueryTextListener(this);
+
         Banner();
     }
 
-    public void CargarConsultaaRV(ArrayList<ItemLista> laLista) {
+    public void CargarConsultaaRV(ArrayList<ItemMaleza> laLista) {
         //Para que guarde en cache y imageview no esten recargando al hacer scroll
         rvPrincipal.setHasFixedSize(true);
         rvPrincipal.setItemViewCacheSize(20);
@@ -184,10 +195,10 @@ public class ActivityLista extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvPrincipal.setLayoutManager(layoutManager);
 
-        RecyclerView.Adapter adaptador = new AdaptadorLista(this, laLista);  //Adaptador
+        adapterMalezas = new AdapterMalezas(this, laLista);  //Adaptador
 
         //OnClick
-        ((AdaptadorLista) adaptador).setOnClickListener(new View.OnClickListener() {
+        ((AdapterMalezas) adapterMalezas).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Guardo el codigo del registro seleccionado
@@ -199,7 +210,7 @@ public class ActivityLista extends AppCompatActivity {
             }
         });
 
-        rvPrincipal.setAdapter(adaptador);
+        rvPrincipal.setAdapter(adapterMalezas);
 
         if (rvPrincipal.getItemDecorationCount() == 0) { //Si no tiene divisor
             //Linea divisor de RecyclerView
@@ -209,7 +220,7 @@ public class ActivityLista extends AppCompatActivity {
     }
 
 
-    public ArrayList<ItemLista> ConsultaBD(String consultaSQL) {
+    public ArrayList<ItemMaleza> ConsultaBD(String consultaSQL) {
         DAO = new DAO(this);
         DAO.Abrir();
         Cursor cursor = DAO.EjecutarSQL(consultaSQL);
@@ -231,7 +242,7 @@ public class ActivityLista extends AppCompatActivity {
             }
             String nombrecientifico = cursor.getString(2); //Columna 2
 
-            listItems.add(new ItemLista(idmaleza, R.drawable.imagen_0, nombrecomun, nombrecientifico));
+            listItems.add(new ItemMaleza(idmaleza, R.drawable.imagen_0, nombrecomun, nombrecientifico));
         }
         cursor.close();
         DAO.Cerrar();
@@ -280,7 +291,7 @@ public class ActivityLista extends AppCompatActivity {
 
     //Creamos el menu del actionbar
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_lista_actionbar, menu); //Cargamos el menu
+        getMenuInflater().inflate(R.menu.menu_lista_malezas_actionbar, menu); //Cargamos el menu
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -410,5 +421,20 @@ public class ActivityLista extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
             }
         }
+    }
+
+    // Buscador
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapterMalezas.filtrado(newText);
+        tvTituloLista.setText(rvPrincipal.getAdapter().getItemCount() + " malezas encontradas");
+
+        return false;
     }
 }

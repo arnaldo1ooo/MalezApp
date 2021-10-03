@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".lista.ActivityLista">
+    tools:context=".lista.ActivityListaMalezas">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -15,6 +15,13 @@
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintTop_toTopOf="parent">
+
+        <SearchView
+            android:id="@+id/svBuscador"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:animationCache="true" />
 
         <FrameLayout
             android:id="@+id/flFragments"
@@ -32,13 +39,16 @@
             android:gravity="center"
             android:text="@string/titulolista"
             android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:ignore="TextContrastCheck" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPrincipal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="0dp" />
+            android:layout_marginTop="0dp" >
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
 
