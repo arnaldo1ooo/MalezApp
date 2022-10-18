@@ -49,7 +49,7 @@ public class FragmentFiltroDistribucion extends Fragment implements OnClickableA
     private ImageView ivMapa;
     private ListView lvdpto;
     private TextView tvTitulo;
-    private StorageReference storageReference = FirebaseStorage.getInstance().getReference(); //Abrir conexion con storage de firestore
+    private StorageReference storageReference;
     private View vista;
 
     public FragmentFiltroDistribucion() {
@@ -73,6 +73,8 @@ public class FragmentFiltroDistribucion extends Fragment implements OnClickableA
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        storageReference = FirebaseStorage.getInstance().getReference(); //Abrir conexion con storage de firestore
     }
 
     @Override
@@ -84,12 +86,12 @@ public class FragmentFiltroDistribucion extends Fragment implements OnClickableA
         lvdpto = vista.findViewById(R.id.lvDptoDistribucion);
         tvTitulo = vista.findViewById(R.id.tvTituloDistribucion);
 
-        Tab();
+        tab();
 
         //Cargar país
         tvTitulo.setText("PARAGUAY");
-        CargarLista("SELECT dep_descripcion FROM departamento ORDER BY dep_descripcion", lvdpto);
-        CrearImagenAreaClickable(ivMapa, AreasClickParaguay());
+        cargarLista("SELECT dep_descripcion FROM departamento ORDER BY dep_descripcion", lvdpto);
+        crearImagenAreaClickable(ivMapa, areasClickParaguay());
 
         lvdpto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -104,7 +106,7 @@ public class FragmentFiltroDistribucion extends Fragment implements OnClickableA
         return vista;
     }
 
-    private void Tab() {
+    private void tab() {
         TabHost tabs = vista.findViewById(R.id.tabhostDistri);
         tabs.setup();
 
@@ -120,7 +122,7 @@ public class FragmentFiltroDistribucion extends Fragment implements OnClickableA
         tabs.setCurrentTab(0);
     }
 
-    public void CargarLista(String consultaSQL, ListView laLista) {
+    public void cargarLista(String consultaSQL, ListView laLista) {
         DAO DAO = new DAO(getActivity());
         ArrayList<String> lista = new ArrayList<>();
         try {
@@ -151,10 +153,10 @@ public class FragmentFiltroDistribucion extends Fragment implements OnClickableA
                 switch (itemSelect) {
                     case "ALTO PARANÁ": {
                         tvTitulo.setText("ALTO PARANÁ");
-                        CargarLista("SELECT dis_descripcion FROM distrito, departamento WHERE dis_departamento=dep_codigo ORDER BY dis_descripcion", lvdpto);
+                        cargarLista("SELECT dis_descripcion FROM distrito, departamento WHERE dis_departamento=dep_codigo ORDER BY dis_descripcion", lvdpto);
                         rutaImagen = rutaImagen + "mapas/mapa_paraguay_altoparana.png";
-                        ObtenerImagen(rutaImagen);
-                        CrearImagenAreaClickable(ivMapa, AreasClickAltoParana());
+                        obtenerImagenInternet(rutaImagen);
+                        crearImagenAreaClickable(ivMapa, areasClickAltoParana());
                         break;
                     }
 
@@ -173,7 +175,7 @@ public class FragmentFiltroDistribucion extends Fragment implements OnClickableA
                         tvTitulo.setText("MINGA GUAZÚ");
                         //CargarLista("SELECT dis_descripcion FROM distrito, departamento WHERE dis_departamento=dep_codigo ORDER BY dis_descripcion", lvdpto);
                         rutaImagen = rutaImagen + "mapas/mapa_altoparana_mingaguazu.png";
-                        ObtenerImagen(rutaImagen);
+                        obtenerImagenInternet(rutaImagen);
                         //CrearImagenAreaClickable(ivMapa, AreasClickAltoParana());
                         break;
                     }
@@ -190,13 +192,13 @@ public class FragmentFiltroDistribucion extends Fragment implements OnClickableA
     }
 
 
-    private void CrearImagenAreaClickable(ImageView laImagen, List<ClickableArea> listaAreaClicks) {
+    private void crearImagenAreaClickable(ImageView laImagen, List<ClickableArea> listaAreaClicks) {
         ClickableAreasImage clickableAreasImage = new ClickableAreasImage(new PhotoViewAttacher(laImagen), this);
         List<ClickableArea> clickableAreas = listaAreaClicks;
         clickableAreasImage.setClickableAreas(clickableAreas);
     }
 
-    private List<ClickableArea> AreasClickParaguay() {
+    private List<ClickableArea> areasClickParaguay() {
         //Se elije un punto XY, a partir de ese punto se trasa una linea horizontal(w) y vertical(h) para formar un cuadrado clickable
         ArrayList<ClickableArea> areasClickables = new ArrayList<>();
         areasClickables.add(new ClickableArea(67, 215, 306, 424, new ItemClickDptos("BOQUERÓN")));
@@ -221,7 +223,7 @@ public class FragmentFiltroDistribucion extends Fragment implements OnClickableA
         return areasClickables;
     }
 
-    private List<ClickableArea> AreasClickAltoParana() {
+    private List<ClickableArea> areasClickAltoParana() {
         //Se elije un punto XY, a partir de ese punto se trasa una linea horizontal(w) y vertical(h) para formar un cuadrado clickable
         ArrayList<ClickableArea> areasClickables = new ArrayList<>();
         areasClickables.add(new ClickableArea(629, 688, 744, 803, new ItemClickDptos("MINGA GUAZÚ")));
@@ -230,7 +232,7 @@ public class FragmentFiltroDistribucion extends Fragment implements OnClickableA
     }
 
 
-    private void ObtenerImagen(String rutaImagen) {
+    private void obtenerImagenInternet(String rutaImagen) {
         //Obtener imagen1 desde internet
         System.out.println("rutaImagen: " + rutaImagen);
         storageReference.child(rutaImagen).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
