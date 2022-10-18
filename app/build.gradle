@@ -1,4 +1,7 @@
-apply plugin: 'com.android.application'
+plugins{
+    id 'com.android.application'
+    id 'com.google.gms.google-services' //Crucial para servicios de google/firebase
+}
 
 android {
     compileSdkVersion 31
@@ -30,8 +33,6 @@ android {
     buildToolsVersion '31.0.0 rc2'
     namespace 'com.arnaldo.malezapp'
 }
-
-apply plugin: 'com.android.application'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
